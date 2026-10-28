@@ -56,12 +56,26 @@ export default async function EnquiryPage({ params }: EnquiryPageProps) {
         >
           <dl className="divide-y divide-line">
             <Row label="Received">{formatDate(row.created_at, true)}</Row>
-            <Row label="Source">{row.source === "wizard" ? "Enquiry form" : "Contact form"}</Row>
+            <Row label="Source">
+              {row.source === "wizard" ? "Enquiry form" : "Contact form"}
+            </Row>
             <Row label="Phone">
-              {row.phone ? <a href={`tel:${row.phone}`} className="underline">{row.phone}</a> : "-"}
+              {row.phone ? (
+                <a href={`tel:${row.phone}`} className="underline">
+                  {row.phone}
+                </a>
+              ) : (
+                "-"
+              )}
             </Row>
             <Row label="Email">
-              {row.email ? <a href={`mailto:${row.email}`} className="underline">{row.email}</a> : "-"}
+              {row.email ? (
+                <a href={`mailto:${row.email}`} className="underline">
+                  {row.email}
+                </a>
+              ) : (
+                "-"
+              )}
             </Row>
             <Row label="Check-in">{formatDate(row.check_in)}</Row>
             <Row label="Check-out">{formatDate(row.check_out)}</Row>
@@ -77,7 +91,12 @@ export default async function EnquiryPage({ params }: EnquiryPageProps) {
               <span className="whitespace-pre-wrap">{show(row.message)}</span>
             </Row>
             {extras.map(([key, value]) => (
-              <Row key={key} label={key.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase())}>
+              <Row
+                key={key}
+                label={key
+                  .replace(/([A-Z])/g, " $1")
+                  .replace(/^./, (c) => c.toUpperCase())}
+              >
                 {show(value)}
               </Row>
             ))}

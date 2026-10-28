@@ -1,9 +1,13 @@
 import { CTA } from "@/components/sections/CTA";
-import { MealTimetable } from "@/components/shared/MealTimetable";
+import { OrderingGuidelines } from "@/components/dining/OrderingGuidelines";
+import { RestaurantActions } from "@/components/dining/RestaurantActions";
+import { RestaurantTimings } from "@/components/dining/RestaurantTimings";
 import { PageHero } from "@/components/shared/PageHero";
 import { PhotoGrid } from "@/components/shared/PhotoGrid";
-import { dining } from "@/data/dining";
 import { gallery } from "@/data/gallery";
+import { dining as staticDining } from "@/data/dining";
+import { getRestaurant } from "@/lib/site-content";
+import { to24h } from "@/lib/restaurant";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd, restaurantJsonLd } from "@/lib/structured-data";
@@ -13,60 +17,58 @@ import Link from "next/link";
 export const metadata = buildMetadata({
   title: "Restaurant",
   description:
-    "The restaurant at Jungle Hill Resort, Coorg serves South Indian, North Indian and Chinese food from 7:00 AM to 10:00 PM. See meal timings and ordering notes.",
+    "The in-house restaurant at Jungle Hill Resort, Coorg: freshly prepared meals in a calm setting amid nature, for families and couples. See meal timings and ordering guidelines.",
   path: "/dining",
 });
 
-export default function DiningPage() {
+export const revalidate = 3600;
+
+export default async function DiningPage() {
+  const dining = await getRestaurant();
+  // Photos come from the gallery's Dining category. The open-air restaurant set is shown in the Gallery only.
+  const hidden = (src: string) => src.includes("restaurant-open-air");
   const photos = [
-    ...dining.images,
+    ...staticDining.images,
     ...gallery.filter(
       (image) =>
-        image.category === "Dining" && !dining.images.some((d) => d.src === image.src),
+        image.category === "Dining" &&
+        !hidden(image.src) &&
+        !staticDining.images.some((d) => d.src === image.src),
     ),
   ];
 
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Dining", path: "/dining" }])} />
-      <JsonLd data={restaurantJsonLd()} />
+      <JsonLd
+        data={restaurantJsonLd({
+          cuisines: dining.cuisines,
+          opens: to24h(dining.opens) ?? "07:00",
+          closes: to24h(dining.closes) ?? "22:00",
+        })}
+      />
       <PageHero
-        label="04 — Restaurant"
+        label="04 — In-house restaurant"
         lines={[{ text: "A table" }, { text: "in the ", emphasis: "estate." }]}
-        description={
-          <p>
-            The in-house restaurant serves South Indian, North Indian and Chinese food
-            through the day, from 7:00 AM to 10:00 PM.
-          </p>
-        }
+        description={<p>{dining.intro}</p>}
       />
 
       <section
-        aria-label="Meal times"
-        className="section-space bg-surface theme-sage text-body"
+        aria-label="Timings and guidelines"
+        className="section-space theme-sage bg-surface text-body"
       >
-        <div className="page-container grid gap-8 lg:grid-cols-12">
+        <div className="page-container grid items-start gap-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <MealTimetable meals={dining.meals} hours={dining.hours} />
-            <ul className="mt-8 flex flex-wrap gap-2" aria-label="Cuisines">
-              {dining.cuisines.map((cuisine) => (
-                <li key={cuisine} className="label-mono border border-line px-3 py-2">
-                  {cuisine}
-                </li>
-              ))}
-            </ul>
+            <RestaurantTimings
+              opens={dining.opens}
+              closes={dining.closes}
+              meals={dining.meals}
+              cuisines={dining.cuisines}
+            />
           </div>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <h2 className="label-mono !font-mono text-xs text-body">
-              Ordering guidelines
-            </h2>
-            <ul className="mt-4">
-              {dining.guidelines.map((guideline) => (
-                <li key={guideline} className=" py-4 text-lg">
-                  {guideline}
-                </li>
-              ))}
-            </ul>
+          <div className="lg:col-span-7">
+            <OrderingGuidelines guidelines={dining.guidelines} />
+            <RestaurantActions />
           </div>
         </div>
       </section>
@@ -82,7 +84,10 @@ export default function DiningPage() {
       )}
 
       <PageNote>
-        The restaurant is on the estate at Jungle Hill Resort, 5 km from Madikeri. Choose a room from our <Link href="/rooms">stays</Link>, see what else is on the property under <Link href="/experiences">experiences</Link>, and read <Link href="/plan-your-stay">plan your stay</Link> before you arrive.
+        The restaurant is on the estate at Jungle Hill Resort, 5 km from Madikeri. Choose
+        a room from our <Link href="/rooms">stays</Link>, see what else is on the property
+        under <Link href="/experiences">experiences</Link>, and read{" "}
+        <Link href="/plan-your-stay">plan your stay</Link> before you arrive.
       </PageNote>
       <CTA />
     </>

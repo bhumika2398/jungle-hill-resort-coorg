@@ -12,7 +12,13 @@ export function LoginForm() {
     <form action={action} className="mt-6 space-y-4">
       <label className="block text-small">
         Email
-        <input name="email" type="email" autoComplete="username" required className={field} />
+        <input
+          name="email"
+          type="email"
+          autoComplete="username"
+          required
+          className={field}
+        />
       </label>
       <label className="block text-small">
         Password

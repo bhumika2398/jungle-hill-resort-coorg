@@ -3,7 +3,9 @@ import { CTA } from "@/components/sections/CTA";
 import { ResortPlanSection } from "@/components/sections/ResortPlanSection";
 import { PageHero } from "@/components/shared/PageHero";
 import { siteConfig } from "@/config/site.config";
-import { faqs } from "@/data/faqs";
+import { faqs as staticFaqs } from "@/data/faqs";
+import { restaurantFaqAnswer } from "@/lib/restaurant";
+import { getRestaurant } from "@/lib/site-content";
 import { checkTimes } from "@/data/policies";
 import { mailLink, mapsHref, telLink } from "@/lib/contact";
 import { buildMetadata } from "@/lib/metadata";
@@ -26,7 +28,13 @@ const steps = [
   "The access road is narrow and two vehicles cannot pass easily. Please drive slowly and give way.",
 ];
 
-export default function PlanYourStayPage() {
+export const revalidate = 3600;
+
+export default async function PlanYourStayPage() {
+  const restaurant = await getRestaurant();
+  const faqs = staticFaqs.map((faq) =>
+    faq.id === "restaurant" ? { ...faq, answer: restaurantFaqAnswer(restaurant) } : faq,
+  );
   const embed = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.contact.addressOneLine)}&output=embed`;
 
   return (
@@ -78,15 +86,10 @@ export default function PlanYourStayPage() {
               </a>
             </div>
 
-            <h2 className="label-mono mt-8 !font-mono text-xs text-body">
-              How to reach
-            </h2>
+            <h2 className="label-mono mt-8 !font-mono text-xs text-body">How to reach</h2>
             <ol className="mt-4">
               {steps.map((step, index) => (
-                <li
-                  key={step}
-                  className="grid grid-cols-[2.5rem_1fr] gap-2 py-4"
-                >
+                <li key={step} className="grid grid-cols-[2.5rem_1fr] gap-2 py-4">
                   <span className="label-mono pt-1 text-body">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -98,7 +101,7 @@ export default function PlanYourStayPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="aspect-[4/3] w-full overflow-hidden border border-line bg-surface theme-sage">
+            <div className="theme-sage aspect-[4/3] w-full overflow-hidden border border-line bg-surface">
               <iframe
                 title="Map showing Jungle Hill Resort"
                 src={embed}
@@ -117,7 +120,7 @@ export default function PlanYourStayPage() {
 
       <section
         aria-label="Check-in and check-out"
-        className="section-space relative isolate overflow-hidden bg-surface theme-sage"
+        className="section-space theme-sage relative isolate overflow-hidden bg-surface"
       >
         <div className="page-container grid gap-6 sm:grid-cols-3">
           <div>
@@ -148,10 +151,7 @@ export default function PlanYourStayPage() {
           </div>
           <div className="lg:col-span-8">
             {faqs.map((faq) => (
-              <details
-                key={faq.id}
-                className="group py-5"
-              >
+              <details key={faq.id} className="group py-5">
                 <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl">
                   {faq.question}
                   <span

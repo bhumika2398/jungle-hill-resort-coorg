@@ -8,7 +8,11 @@ import { roomKey, type RoomContent } from "@/lib/site-content";
 
 export const metadata: Metadata = { title: "Edit stay" };
 
-export default async function AdminRoomPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function AdminRoomPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const base = getRoomBySlug(slug);
   if (!base) notFound();

@@ -8,6 +8,8 @@ import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { PageNote } from "@/components/shared/PageNote";
+import { shortHours } from "@/lib/restaurant";
+import { getRestaurant } from "@/lib/site-content";
 
 export const metadata = buildMetadata({
   title: "About",
@@ -16,17 +18,28 @@ export const metadata = buildMetadata({
   path: "/about",
 });
 
-const facts = [
+const staticFacts = [
   ["5 km", "from Madikeri, on the way to Virajpet"],
   ["13", "rooms in Standard Non-AC, Deluxe AC and Family AC categories"],
-  ["7 AM – 10 PM", "restaurant: South Indian, North Indian and Chinese"],
+  ["", "restaurant"],
   [
     "Pool · Play · Games",
     "swimming pool, kids play area, indoor games and shuttle badminton",
   ],
 ];
 
-export default function AboutPage() {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const restaurant = await getRestaurant();
+  const facts = staticFacts.map(([value, label]) =>
+    label === "restaurant"
+      ? ([
+          shortHours(restaurant.opens, restaurant.closes),
+          `restaurant: ${restaurant.cuisines.join(", ")}`,
+        ] as const)
+      : ([value, label] as const),
+  );
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "About", path: "/about" }])} />
@@ -51,8 +64,8 @@ export default function AboutPage() {
               the day.
             </p>
             <p>
-              The in-house restaurant serves South Indian, North Indian and Chinese
-              cuisine through the day.
+              The in-house restaurant serves {restaurant.cuisines.join(", ")} cuisine
+              through the day.
             </p>
             <p>
               It is designed for relaxation and a peaceful stay in nature. Quiet hours
@@ -84,11 +97,11 @@ export default function AboutPage() {
 
       <section
         aria-label="At a glance"
-        className="section-space relative isolate overflow-hidden bg-surface theme-sage"
+        className="section-space theme-sage relative isolate overflow-hidden bg-surface"
       >
         <dl className="page-container grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
           {facts.map(([value, label]) => (
-            <div key={value} className="bg-surface theme-sage p-6 first:pl-0 lg:py-2">
+            <div key={value} className="theme-sage bg-surface p-6 first:pl-0 lg:py-2">
               <dt className="font-display text-3xl">{value}</dt>
               <dd className="mt-2 text-sm text-body">{label}</dd>
             </div>

@@ -10,7 +10,9 @@ const tone: Record<EnquiryStatus, string> = {
 
 export function StatusBadge({ status }: { status: EnquiryStatus }) {
   return (
-    <span className={`inline-block rounded-full border px-2.5 py-0.5 text-small ${tone[status]}`}>
+    <span
+      className={`inline-block rounded-full border px-2.5 py-0.5 text-small ${tone[status]}`}
+    >
       {STATUS_LABEL[status]}
     </span>
   );

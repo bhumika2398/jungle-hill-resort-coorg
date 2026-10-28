@@ -62,7 +62,13 @@ export interface MealTime {
 }
 
 export interface DiningInfo {
+  /** Welcome paragraph shown under the Dining page heading. */
+  intro: string;
   cuisines: string[];
+  /** Opening and closing time, as written for guests, for example "7:00 AM". */
+  opens: string;
+  closes: string;
+  /** "opens to closes", derived. */
   hours: string;
   meals: MealTime[];
   guidelines: string[];
