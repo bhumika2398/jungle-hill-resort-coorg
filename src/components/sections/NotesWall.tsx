@@ -52,7 +52,7 @@ export function NotesWall({ notes }: { notes: SpokenNote[] }) {
         <div
           key={c}
           className={cn(
-            "contents lg:flex lg:min-w-0 lg:flex-1 lg:flex-col lg:gap-10",
+            "contents lg:flex lg:min-w-0 lg:flex-1 lg:flex-col lg:gap-8",
             COLUMN_OFFSET[c],
           )}
         >

@@ -39,7 +39,7 @@ export function Retreat() {
         </div>
       )}
       <div className="page-container">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8">
             <SectionHeader
               label="The retreat"

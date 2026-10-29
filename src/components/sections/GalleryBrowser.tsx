@@ -221,15 +221,15 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
                 />
                 {centre && (
                   <>
-                    <span className="label-mono absolute top-3 right-3 rounded-[4px] border border-ivory/70 bg-burgundy/50 px-2.5 py-1 text-[0.6rem] text-ivory backdrop-blur-sm">
+                    <span className="glass label-mono absolute top-3 right-3 rounded-[4px] px-2.5 py-1 text-[0.6rem]">
                       {image.category}
                     </span>
-                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-burgundy/90 via-burgundy/55 to-transparent px-4 pt-14 pb-4 text-left text-ivory">
-                      <span className="block font-display text-2xl leading-tight">
+                    <span className="glass absolute inset-x-2 bottom-2 rounded-[6px] p-3 text-left">
+                      <span className="block font-display text-xl leading-tight">
                         {image.title ?? image.category}
                       </span>
-                      <span aria-hidden="true" className="mt-2 block h-px w-8 bg-ivory" />
-                      <span className="mt-2 line-clamp-2 block text-small text-ivory">
+                      <span aria-hidden="true" className="mt-1.5 block h-px w-8 bg-burgundy" />
+                      <span className="mt-1.5 line-clamp-2 block text-small">
                         {image.alt}
                       </span>
                     </span>

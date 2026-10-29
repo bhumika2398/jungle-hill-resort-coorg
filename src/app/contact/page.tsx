@@ -38,7 +38,7 @@ export default function ContactPage() {
         aria-label="Enquiry form and contact details"
         className="pb-[var(--space-section)]"
       >
-        <div className="page-container grid gap-8 lg:grid-cols-12">
+        <div className="page-container grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <Suspense
               fallback={
@@ -52,7 +52,7 @@ export default function ContactPage() {
           </div>
 
           <aside aria-label="Contact details" className="lg:col-span-4">
-            <div className="rounded-[6px] border border-line bg-card p-5 text-body shadow-soft lg:sticky lg:top-24">
+            <div className="rounded-[6px] border border-line bg-card p-5 text-body hard-shadow lg:sticky lg:top-24">
               <p className="label-mono text-body">Reservations</p>
               <a
                 href={telLink}

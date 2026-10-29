@@ -32,11 +32,11 @@ export default function TestimonialsPage() {
         />
         <p className="mt-4 text-body/80">Real reviews from Google</p>
 
-        <div className="mt-8 sm:mt-10">
+        <div className="mt-6 sm:mt-8">
           <NotesWall notes={spokenNotes} />
         </div>
 
-        <div className="mt-10 sm:mt-12">
+        <div className="mt-8 sm:mt-10">
           <h2 className="font-display text-h3">Planning a stay?</h2>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link href="/contact" className="btn btn-primary">

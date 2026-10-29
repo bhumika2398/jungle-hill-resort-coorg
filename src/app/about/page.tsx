@@ -40,7 +40,7 @@ export default function AboutPage() {
       />
 
       <section aria-label="The resort" className="pb-[var(--space-section)]">
-        <div className="page-container grid gap-8 lg:grid-cols-12">
+        <div className="page-container grid gap-6 lg:grid-cols-12">
           <div className="space-y-5 lg:col-span-5">
             <p>
               There are 13 well-maintained rooms across Standard Non-AC, Deluxe AC and

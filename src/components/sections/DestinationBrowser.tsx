@@ -62,27 +62,53 @@ function DestinationCard({ destination }: { destination: Destination }) {
 
         <div
           className={cn(
-            "absolute inset-x-0 bottom-0 z-10 px-4 pb-4",
-            image
+            "absolute inset-x-0 bottom-0 z-30 p-3",
+            image && !open
               ? "bg-gradient-to-t from-burgundy/90 via-burgundy/55 to-transparent pt-16 text-ivory"
-              : "top-0 flex flex-col justify-end text-burgundy",
+              : !image && "top-0 flex flex-col justify-end text-burgundy",
           )}
         >
-          <h3 className="font-display text-2xl leading-tight sm:text-[1.7rem]">
-            {destination.name}
-          </h3>
-          {subtitle && (
-            <p className={cn("mt-1 text-small", image ? "text-ivory" : "text-body/80")}>
-              {subtitle}
-            </p>
-          )}
+          <div className={cn(open && "hidden")}>
+            <h3 className="px-1 font-display text-2xl leading-tight sm:text-[1.7rem]">
+              {destination.name}
+            </h3>
+            {subtitle && (
+              <p
+                className={cn(
+                  "mt-1 px-1 text-small",
+                  image ? "text-ivory" : "text-body/80",
+                )}
+              >
+                {subtitle}
+              </p>
+            )}
+          </div>
+          <div
+            className={cn(
+              "flex items-center justify-between gap-3 rounded-[6px] px-3 py-2 text-body",
+              !open && "mt-3",
+              image ? "glass" : "border border-line bg-card",
+            )}
+          >
+            <p className="min-w-0 truncate text-small">{footerFact}</p>
+            <button
+              type="button"
+              aria-expanded={open}
+              aria-controls={detailsId}
+              onClick={() => setOpen((value) => !value)}
+              className="btn btn-primary !min-h-9 shrink-0 !px-4"
+            >
+              {open ? "Close" : "Explore"}
+              <span className="sr-only"> {destination.name}</span>
+            </button>
+          </div>
         </div>
 
         <div
           id={detailsId}
           data-lenis-prevent
           hidden={!open}
-          className="absolute inset-0 z-20 flex flex-col overflow-y-auto bg-card/95 p-5 text-body"
+          className="absolute inset-x-0 top-0 bottom-[4.25rem] z-20 flex flex-col overflow-y-auto bg-card/95 p-5 text-body"
         >
           <p className="label-mono text-body/70">{destination.distanceKm} km</p>
           <h3 className="mt-1 font-display text-2xl leading-tight">{destination.name}</h3>
@@ -111,20 +137,6 @@ function DestinationCard({ destination }: { destination: Destination }) {
             Open in Maps <ArrowUpRight size={14} strokeWidth={1.5} aria-hidden="true" />
           </a>
         </div>
-      </div>
-
-      <div className="mt-auto flex items-center justify-between gap-3 px-4 py-3">
-        <p className="min-w-0 truncate text-small text-body/80">{footerFact}</p>
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-controls={detailsId}
-          onClick={() => setOpen((value) => !value)}
-          className="btn btn-primary !min-h-9 shrink-0 !px-4"
-        >
-          {open ? "Close" : "Explore"}
-          <span className="sr-only"> {destination.name}</span>
-        </button>
       </div>
     </article>
   );

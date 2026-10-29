@@ -31,7 +31,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-ink/25 to-transparent"
       />
 
-      <div className="page-container relative flex flex-1 flex-col justify-end pt-24 pb-20">
+      <div className="page-container relative flex flex-1 flex-col justify-end pt-24 pb-14">
         <HeroFade>
           <p className="label-mono text-ivory [text-shadow:0_1px_14px_rgba(100,28,43,0.7)]">
             Coffee estate · Madikeri, Coorg

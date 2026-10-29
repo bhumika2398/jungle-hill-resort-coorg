@@ -31,7 +31,7 @@ export function ExploreBand() {
         <div className="absolute inset-0 bg-olive/[0.78]" />
       </div>
 
-      <div className="page-container grid gap-8 lg:grid-cols-12 lg:items-center">
+      <div className="page-container grid gap-6 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <RevealText
             as="h2"
@@ -68,7 +68,7 @@ export function ExploreBand() {
                     objectPosition={place.image?.objectPosition}
                     imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                   />
-                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-burgundy/70 to-transparent p-3 pt-10 font-display text-lg leading-tight text-ivory transition-transform duration-300 group-hover:-translate-y-1">
+                  <span className="glass absolute inset-x-2 bottom-2 rounded-[4px] px-3 py-2 font-display text-lg leading-tight transition-transform duration-300 group-hover:-translate-y-0.5">
                     {place.name}
                   </span>
                 </Link>

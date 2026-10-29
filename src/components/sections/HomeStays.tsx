@@ -24,7 +24,7 @@ export async function HomeStays() {
       aria-label="Our stays"
       className="section-space theme-sage scroll-mt-20 bg-surface text-body"
     >
-      <div className="page-container grid gap-8 lg:grid-cols-12 lg:gap-10 pr-[4.25rem] lg:pr-20">
+      <div className="page-container grid gap-6 lg:grid-cols-12 lg:gap-8 pr-[4.25rem] lg:pr-20">
         <div className="lg:col-span-4 lg:pt-4">
           <SectionHeader
             tone="dark"
@@ -36,7 +36,7 @@ export async function HomeStays() {
               </p>
             }
           />
-          <Link href="/rooms" className="btn btn-outline mt-6 inline-flex">
+          <Link href="/rooms" className="btn btn-outline hard-shadow mt-6 inline-flex">
             View All Stays
           </Link>
         </div>

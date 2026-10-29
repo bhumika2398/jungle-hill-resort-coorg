@@ -252,7 +252,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
   if (sent) {
     const mail = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent("Stay enquiry")}&body=${encodeURIComponent(sent.summary)}`;
     return (
-      <BoxCard className="p-6 sm:p-8" role="status">
+      <BoxCard className="p-5 sm:p-6" role="status">
         <p className="label-mono flex items-center gap-2 text-body">
           <Check
             size={16}
@@ -296,7 +296,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
   ];
 
   return (
-    <BoxCard className="p-5 sm:p-8">
+    <BoxCard className="p-5 sm:p-6">
       <ol
         aria-label="Progress"
         className="label-mono flex flex-wrap gap-x-6 gap-y-2 text-[0.68rem]"

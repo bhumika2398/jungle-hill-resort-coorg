@@ -16,7 +16,7 @@ const FALLBACK_MS = 3000;
 const STAGGER_MS = 100;
 
 const pill =
-  "floating-pill ring-2 ring-ivory/60 inline-flex items-center justify-center border border-burgundy bg-burgundy text-ivory transition-[border-color,background-color] hover:border-ink hover:bg-ink";
+  "floating-pill glass inline-flex items-center justify-center text-burgundy transition-[border-color,background-color] hover:border-burgundy hover:bg-card";
 const round = "h-11 w-11 rounded-full";
 
 /**

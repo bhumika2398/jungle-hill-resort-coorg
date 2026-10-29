@@ -77,7 +77,7 @@ export default async function RoomPage({ params }: RoomPageProps) {
           { name: room.name, path: `/rooms/${room.slug}` },
         ])}
       />
-      <section aria-label={room.name} className="pt-28 sm:pt-32">
+      <section aria-label={room.name} className="pt-24 sm:pt-28">
         <div className="page-container">
           <p className="label-mono text-body">
             <Link href="/rooms" className="link-underline">
@@ -99,10 +99,10 @@ export default async function RoomPage({ params }: RoomPageProps) {
             <BentoGallery
               images={room.images}
               overlay={
-                <GlassPanel className="pointer-events-auto grid max-w-md gap-x-6 gap-y-2 bg-ink/55 p-4 sm:grid-cols-2">
+                <GlassPanel className="pointer-events-auto grid max-w-md gap-x-6 gap-y-2 p-4 sm:grid-cols-2">
                   {facts.map((fact) => (
                     <div key={fact.label}>
-                      <p className="label-mono text-[0.6rem] text-ivory/90">
+                      <p className="label-mono text-[0.6rem] text-body/80">
                         {fact.label}
                       </p>
                       <p className="font-display text-lg leading-tight">{fact.value}</p>
@@ -154,7 +154,7 @@ export default async function RoomPage({ params }: RoomPageProps) {
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="rounded-[6px] border border-line bg-card p-5 text-body shadow-soft lg:sticky lg:top-24">
+            <div className="rounded-[6px] border border-line bg-card p-5 text-body hard-shadow lg:sticky lg:top-24">
               <p className="label-mono text-body">{room.rateNote}</p>
               <p className="mt-2 font-display text-h4">{room.name}</p>
               <div className="mt-4 flex flex-col gap-3">

@@ -29,7 +29,7 @@ export function BookingBand() {
       aria-label="Ask about your dates"
       className="section-space relative isolate overflow-hidden bg-burgundy text-ivory"
     >
-      <div className="page-container relative grid items-center gap-6 lg:grid-cols-[0.8fr_1.5fr] lg:gap-10">
+      <div className="page-container relative grid items-center gap-6 lg:grid-cols-[0.8fr_1.5fr] lg:gap-8">
         <div>
           <h2 className="text-h3 text-ivory">
             Dates in mind?
@@ -39,7 +39,7 @@ export function BookingBand() {
         <form
           onSubmit={submit}
           aria-label="Send an enquiry"
-          className="shadow-soft grid gap-4 rounded-[6px] bg-ivory-card p-4 text-ivory-ink sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.6fr_auto] lg:items-end"
+          className="glass grid gap-4 rounded-[6px] p-4 text-body sm:grid-cols-2 lg:grid-cols-[1fr_1fr_0.6fr_auto] lg:items-end"
         >
           <label className="label-mono block">
             Check-in

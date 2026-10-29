@@ -51,12 +51,12 @@ export default async function RoomsPage() {
         aria-label="Good to know"
         className="section-space relative isolate overflow-hidden bg-surface theme-sage"
       >
-        <div className="page-container grid gap-8 lg:grid-cols-12">
+        <div className="page-container grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="label-mono text-body">Good to know</p>
             <h2 className="mt-4 text-h3">Before you choose</h2>
           </div>
-          <ul className="grid gap-8 sm:grid-cols-2 lg:col-span-7">
+          <ul className="grid gap-6 sm:grid-cols-2 lg:col-span-7">
             <li>
               <h3 className="text-2xl">Who sleeps where</h3>
               <p className="mt-2 text-body">

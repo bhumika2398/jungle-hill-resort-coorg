@@ -43,7 +43,11 @@
 
   --container-page: 80rem;
   --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
-  --space-section: clamp(1.75rem, 3vw, 2.75rem);
+  --space-section: clamp(1.5rem, 3vw, 2.5rem);
+  /* Heading to content, paragraph gaps, grid gaps and card padding */
+  --space-head: 1.125rem;
+  --space-gap: 1.125rem;
+  --space-card: 1.125rem;
 }
 
 /* Section themes: each major section sets its own background, card, text and line colours. */
@@ -166,7 +170,7 @@
 
   /* The home page keeps the roomier rhythm; inner pages use the tighter default */
   .home-page {
-    --space-section: clamp(2.5rem, 5vw, 4.5rem);
+    --space-section: clamp(2rem, 4vw, 3.5rem);
   }
 
   .section-space {
@@ -189,11 +193,17 @@
 
   /* Glass: scrolled header, hero enquiry bar, room facts panel, mobile menu and lightbox caption only */
   .glass {
-    background: rgba(247, 244, 236, 0.12);
-    -webkit-backdrop-filter: blur(24px) saturate(120%);
-    backdrop-filter: blur(24px) saturate(120%);
-    border: 1px solid rgba(247, 244, 236, 0.25);
-    color: var(--color-ivory);
+    background: color-mix(in srgb, var(--card) 68%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    backdrop-filter: blur(14px) saturate(1.1);
+    border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    box-shadow: 0 8px 24px rgba(100, 28, 43, 0.12);
+    color: var(--body);
+  }
+
+  /* Brutal minimalism: one hard offset shadow per page, on a single primary element */
+  .hard-shadow {
+    box-shadow: 4px 4px 0 0 var(--color-burgundy);
   }
 
   /* Hard-edged card with an offset shadow. At most two on the whole site. */

@@ -5,9 +5,10 @@ import { Photo } from "@/components/shared/Photo";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { photo } from "@/lib/images";
 
-const poolPhoto = photo(
-  "/images/gallery/pool-with-kids-pool.jpg",
-  "Swimming pool and shallow kids pool on a tiled deck with chairs",
+// The strongest atmospheric photo on the estate: blue sky, layered forested hills and a curving red paver path.
+const leadPhoto = photo(
+  "/images/gallery/grounds-valley-path.jpg",
+  "Red paver path curving through tall trees to forested hills under a blue sky with clouds",
 );
 
 // Four real things to do. Each row opens its block on /experiences (the restaurant has its own page).
@@ -17,8 +18,8 @@ const rows = [
     fact: "7 AM to 7 PM · 4.7 ft deep",
     href: "/experiences#swimming-pool",
     image: photo(
-      "/images/gallery/pool-palms.jpg",
-      "Blue swimming pool with palms behind",
+      "/images/gallery/pool-with-kids-pool.jpg",
+      "Swimming pool and shallow kids pool on a tiled deck with chairs",
     ),
   },
   {
@@ -58,12 +59,13 @@ export function HomeExperiences() {
       aria-label="Experiences"
       className="section-space theme-sand bg-surface text-body"
     >
-      <div className="page-container grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+      <div className="page-container grid items-center gap-6 lg:grid-cols-12 lg:gap-8">
         <div className="min-w-0 lg:col-span-5">
           <RevealImage className="mx-auto max-w-md lg:max-w-none">
             <div className="arch-frame relative h-[420px] overflow-hidden bg-card">
               <Photo
-                image={poolPhoto}
+                image={leadPhoto}
+                objectPosition="50% 40%"
                 fill
                 sizes="(min-width: 1024px) 40vw, 92vw"
                 imgClassName="transition-transform duration-500 [@media(hover:hover)]:hover:scale-[1.03]"

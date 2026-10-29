@@ -44,11 +44,11 @@ export default function DiningPage() {
         className="section-space theme-sage bg-surface text-body"
       >
         <div className="page-container grid gap-5 lg:grid-cols-2 lg:gap-8">
-          <div className="shadow-soft rounded-[6px] border border-line bg-card p-6 sm:p-8">
+          <div className="shadow-soft rounded-[6px] border border-line bg-card p-5 sm:p-6">
             <MealTimetable meals={dining.meals} hours={dining.hours} />
             <p className="mt-6 text-small text-body/80">{dining.cuisines.join(" · ")}</p>
           </div>
-          <div className="shadow-soft rounded-[6px] border border-line bg-card p-6 sm:p-8">
+          <div className="shadow-soft rounded-[6px] border border-line bg-card p-5 sm:p-6">
             <h2 className="label-mono text-body/70">Ordering notes</h2>
             <ul className="mt-4 space-y-3">
               {dining.guidelines.map((guideline) => (

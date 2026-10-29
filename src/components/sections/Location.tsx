@@ -16,7 +16,7 @@ const image = photo(
 export function Location() {
   return (
     <section id="location" aria-label="Location" className="section-space">
-      <div className="page-container grid gap-8 lg:grid-cols-12 lg:gap-6">
+      <div className="page-container grid gap-6 lg:grid-cols-12 lg:gap-6">
         <div className="lg:col-span-6">
           <SectionHeader
             label="Find us"

@@ -7,7 +7,7 @@ import { homeImages } from "@/data/site";
 export function About() {
   return (
     <section id="welcome" aria-label="Welcome" className="section-space">
-      <div className="page-container grid gap-8 lg:grid-cols-12 lg:gap-6">
+      <div className="page-container grid gap-6 lg:grid-cols-12 lg:gap-6">
         <div className="lg:col-span-6">
           <SectionHeader
             label="Welcome"
