@@ -49,7 +49,7 @@ export default function TouristDestinationsPage() {
         <div className="page-container">
           <p className="label-mono text-body">Plan your stay</p>
           <h2 className="mt-4 max-w-[18ch] text-h2">
-            Stay close to <em className="font-light text-body">all of it.</em>
+            Stay close to all of it.
           </h2>
           <p className="mt-4 max-w-[46ch] text-body/80">
             Tell us your dates and who is coming. We reply with availability and rates.

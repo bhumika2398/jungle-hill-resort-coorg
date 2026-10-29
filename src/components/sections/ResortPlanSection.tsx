@@ -14,9 +14,11 @@ const ResortPlan = dynamic(() =>
 export function ResortPlanSection({
   id = "plan",
   heading = true,
+  details = true,
 }: {
   id?: string;
   heading?: boolean;
+  details?: boolean;
 }) {
   return (
     <section
@@ -38,43 +40,46 @@ export function ResortPlanSection({
         )}
         <ResortPlan className={heading ? "mt-8" : undefined} compact={heading} />
 
-        <ol
-          aria-label="Getting here"
-          className="mt-8 grid gap-4 pt-6 sm:grid-cols-4"
-        >
-          {gettingHere.map((step, index) => (
-            <li key={step.label}>
-              <span className="label-mono text-body">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <p className="mt-1 font-display text-h4">{step.label}</p>
-              <p className="text-small text-body/80">{step.detail}</p>
-            </li>
-          ))}
-        </ol>
-
-        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <address className="text-body/80 not-italic">
-              {siteConfig.contact.addressLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
+        {details && (
+          <>
+            <ol aria-label="Getting here" className="mt-8 grid gap-4 pt-6 sm:grid-cols-4">
+              {gettingHere.map((step, index) => (
+                <li key={step.label}>
+                  <span className="label-mono text-body">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-1 font-display text-h4">{step.label}</p>
+                  <p className="text-small text-body/80">{step.detail}</p>
+                </li>
               ))}
-            </address>
-            <p className="mt-2 max-w-[56ch] text-small text-body/80">
-              The access road is narrow for two vehicles to pass, so please drive slowly.
-            </p>
-          </div>
-          <a
-            href={mapsHref()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary gap-2 self-start"
-          >
-            <MapPin size={16} strokeWidth={1.5} aria-hidden="true" /> Open in Google Maps
-          </a>
-        </div>
+            </ol>
+
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <address className="text-body/80 not-italic">
+                  {siteConfig.contact.addressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+                <p className="mt-2 max-w-[56ch] text-small text-body/80">
+                  The access road is narrow for two vehicles to pass, so please drive
+                  slowly.
+                </p>
+              </div>
+              <a
+                href={mapsHref()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary gap-2 self-start"
+              >
+                <MapPin size={16} strokeWidth={1.5} aria-hidden="true" /> Open in Google
+                Maps
+              </a>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

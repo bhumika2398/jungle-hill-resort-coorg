@@ -70,7 +70,7 @@ export const experiences: Experience[] = [
     title: "Outdoor games",
     label: "Outdoor",
     summary: "Shuttle badminton, played within the property premises.",
-    facts: ["Shuttle badminton, within the property premises"],
+    facts: [],
     images: [],
   },
 ];

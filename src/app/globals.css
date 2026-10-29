@@ -43,7 +43,7 @@
 
   --container-page: 80rem;
   --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
-  --space-section: clamp(2.5rem, 5vw, 4.5rem);
+  --space-section: clamp(1.75rem, 3vw, 2.75rem);
 }
 
 /* Section themes: each major section sets its own background, card, text and line colours. */
@@ -164,6 +164,11 @@
     padding-inline: var(--spacing-gutter);
   }
 
+  /* The home page keeps the roomier rhythm; inner pages use the tighter default */
+  .home-page {
+    --space-section: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
   .section-space {
     padding-block: var(--space-section);
   }
@@ -270,24 +275,12 @@
     color: var(--color-ink);
   }
 
-  /* Text link with an animated sage underline (burgundy on light, ivory on photos) */
+  /* Text link with no rule under it: it fades slightly on hover */
   .link-underline {
-    background-image: linear-gradient(var(--color-burgundy), var(--color-burgundy));
-    background-size: 100% 1px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    padding-bottom: 0.22em;
-    transition: background-size 0.4s var(--ease-out-expo);
-  }
-  .dark-surface .link-underline {
-    background-image: linear-gradient(var(--color-ivory), var(--color-ivory));
-  }
-  .dark-surface .link-underline {
-    background-image: linear-gradient(var(--color-ivory), var(--color-ivory));
+    transition: opacity 0.3s;
   }
   .link-underline:hover {
-    background-size: 0 1px;
-    background-position: 100% 100%;
+    opacity: 0.7;
   }
 }
 

@@ -129,8 +129,8 @@ export function DestinationBrowser({ destinations }: { destinations: Destination
             className={cn(
               "label-mono min-h-11 transition-colors",
               active === filter.id
-                ? "text-body underline decoration-burgundy underline-offset-8"
-                : "text-body hover:text-body",
+                ? "text-burgundy"
+                : "text-body/60 hover:text-body",
             )}
           >
             {filter.label}

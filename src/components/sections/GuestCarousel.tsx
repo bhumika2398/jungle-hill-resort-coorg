@@ -169,10 +169,6 @@ export function GuestCarousel({ notes }: { notes: SpokenNote[] }) {
                     </p>
                   </blockquote>
                   <figcaption className="mt-3 flex items-center gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="block h-px w-6 shrink-0 bg-burgundy"
-                    />
                     <span className="label-mono truncate tracking-[0.2em] uppercase">
                       {note.name}
                     </span>

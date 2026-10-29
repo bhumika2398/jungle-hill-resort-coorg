@@ -184,7 +184,7 @@ export default async function RoomPage({ params }: RoomPageProps) {
         <div className="page-container">
           <p className="label-mono text-body">Enquire</p>
           <h2 className="mt-3 mb-6 text-h2">
-            Ask about <em className="font-light text-body">{room.name}.</em>
+            Ask about {room.name}.
           </h2>
           <Suspense fallback={<p className="text-body">Loading the form…</p>}>
             <EnquiryWizard defaultStay={room.slug} />

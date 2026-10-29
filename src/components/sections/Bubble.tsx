@@ -73,7 +73,7 @@ export function Bubble({
         {useExcerpt && (
           <Link
             href={`/testimonials#note-${note.id}`}
-            className="label-mono touch-target mt-2 self-start text-[0.7rem] text-body underline decoration-burgundy underline-offset-4 hover:text-burgundy"
+            className="label-mono touch-target mt-2 self-start text-[0.7rem] text-burgundy hover:opacity-70"
           >
             Read the full note<span className="sr-only"> by {note.name}</span>
           </Link>
@@ -88,7 +88,6 @@ export function Bubble({
         />
       </div>
       <figcaption className={cn("mt-5 flex items-center gap-3", NAME_ALIGN[tail])}>
-        <span aria-hidden="true" className="block h-px w-6 shrink-0 bg-olive" />
         {note.profileUrl ? (
           <a
             href={note.profileUrl}

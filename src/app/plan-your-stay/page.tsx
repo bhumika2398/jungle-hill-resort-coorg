@@ -46,7 +46,7 @@ export default function PlanYourStayPage() {
         }
       />
 
-      <ResortPlanSection id="plan" heading={false} />
+      <ResortPlanSection id="plan" heading={false} details={false} />
 
       <section aria-label="Location and directions" className="pb-[var(--space-section)]">
         <div className="page-container grid gap-8 lg:grid-cols-12">
@@ -78,15 +78,10 @@ export default function PlanYourStayPage() {
               </a>
             </div>
 
-            <h2 className="label-mono mt-8 !font-mono text-xs text-body">
-              How to reach
-            </h2>
+            <h2 className="label-mono mt-8 !font-mono text-xs text-body">How to reach</h2>
             <ol className="mt-4">
               {steps.map((step, index) => (
-                <li
-                  key={step}
-                  className="grid grid-cols-[2.5rem_1fr] gap-2 py-4"
-                >
+                <li key={step} className="grid grid-cols-[2.5rem_1fr] gap-2 py-4">
                   <span className="label-mono pt-1 text-body">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -98,7 +93,7 @@ export default function PlanYourStayPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="aspect-[4/3] w-full overflow-hidden border border-line bg-surface theme-sage">
+            <div className="theme-sage aspect-[4/3] w-full overflow-hidden border border-line bg-surface">
               <iframe
                 title="Map showing Jungle Hill Resort"
                 src={embed}
@@ -117,7 +112,7 @@ export default function PlanYourStayPage() {
 
       <section
         aria-label="Check-in and check-out"
-        className="section-space relative isolate overflow-hidden bg-surface theme-sage"
+        className="section-space theme-sage relative isolate overflow-hidden bg-surface"
       >
         <div className="page-container grid gap-6 sm:grid-cols-3">
           <div>
@@ -142,16 +137,11 @@ export default function PlanYourStayPage() {
         <div className="page-container grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="label-mono text-body">Questions</p>
-            <h2 className="mt-4 text-h3">
-              Things people <em className="font-light text-body">ask.</em>
-            </h2>
+            <h2 className="mt-4 text-h3">Things people ask.</h2>
           </div>
           <div className="lg:col-span-8">
             {faqs.map((faq) => (
-              <details
-                key={faq.id}
-                className="group py-5"
-              >
+              <details key={faq.id} className="group py-5">
                 <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl">
                   {faq.question}
                   <span

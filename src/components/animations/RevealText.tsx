@@ -4,7 +4,6 @@ import type { CSSProperties } from "react";
 import { m } from "motion/react";
 import { easeOut } from "@/lib/animations";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { cn } from "@/lib/utils";
 
 export interface HeadingLine {
   text?: string;
@@ -32,7 +31,6 @@ export function RevealText({
   className,
   delay = 0,
   immediate = false,
-  onDark = false,
 }: RevealTextProps) {
   const reduced = useReducedMotion();
 
@@ -79,13 +77,7 @@ export function RevealText({
             {...trigger}
           >
             {line.text}
-            {line.emphasis && (
-              <em
-                className={cn("font-light italic", onDark ? "text-ivory" : "text-olive")}
-              >
-                {line.emphasis}
-              </em>
-            )}
+            {line.emphasis}
             {line.after}
           </m.span>
         </span>

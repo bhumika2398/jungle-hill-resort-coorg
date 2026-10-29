@@ -37,45 +37,36 @@ export default function ExperiencesPage() {
 
       <section aria-label="Things to do" className="pb-[var(--space-section)]">
         <ol className="page-container">
-          {experiences.map((item, index) => (
+          {experiences.map((item) => (
             <li
               key={item.slug}
               id={item.slug}
-              className="grid scroll-mt-28 gap-8 py-8 lg:grid-cols-12"
+              className="grid scroll-mt-28 items-center gap-6 py-6 lg:grid-cols-12 lg:gap-10"
             >
               <div className="lg:col-span-5">
-                <p className="label-mono text-body">
-                  {String(index + 1).padStart(2, "0")} · {item.label}
-                </p>
-                <h2 className="mt-3 text-h2">{item.title}</h2>
-                <p className="mt-5 max-w-md text-body">{item.summary}</p>
-                <ul className="mt-6">
-                  {item.facts.map((fact) => (
-                    <li key={fact} className="label-mono py-3">
-                      {fact}
-                    </li>
-                  ))}
-                </ul>
+                <p className="label-mono text-body/70">{item.label}</p>
+                <h2 className="mt-2 text-h3">{item.title}</h2>
+                <p className="mt-3 max-w-md text-body">{item.summary}</p>
+                {item.facts.length > 0 && (
+                  <p className="mt-4 text-small text-body/80">{item.facts.join(" · ")}</p>
+                )}
               </div>
               <div className="lg:col-span-6 lg:col-start-7">
-                {item.images.length > 1 ? (
-                  <PhotoGrid images={item.images} />
-                ) : item.images[0] ? (
-                  <RevealImage>
-                    <div className="relative aspect-[4/3] overflow-hidden">
-                      <Photo
-                        image={item.images[0]}
-                        fill
-                        sizes="(min-width: 1024px) 50vw, 100vw"
-                      />
-                    </div>
-                  </RevealImage>
-                ) : (
-                  <div className="label-mono flex aspect-[4/3] items-end bg-surface theme-sage p-6 text-body">
-                    {/* TODO: add a photo to public/images/experiences and reference it in data/experiences.ts */}
-                    Photograph to come
-                  </div>
-                )}
+                {
+                  item.images.length > 1 ? (
+                    <PhotoGrid images={item.images} />
+                  ) : item.images[0] ? (
+                    <RevealImage>
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Photo
+                          image={item.images[0]}
+                          fill
+                          sizes="(min-width: 1024px) 50vw, 100vw"
+                        />
+                      </div>
+                    </RevealImage>
+                  ) : null /* TODO: add a photo to public/images/experiences and reference it in data/experiences.ts */
+                }
               </div>
             </li>
           ))}
@@ -88,7 +79,10 @@ export default function ExperiencesPage() {
       </section>
 
       <PageNote>
-        The pool, kids play area and games are all on the estate, close to the <Link href="/rooms">rooms</Link> and the <Link href="/dining">restaurant</Link>. For directions from Madikeri and house rules, see <Link href="/plan-your-stay">plan your stay</Link>.
+        The pool, kids play area and games are all on the estate, close to the{" "}
+        <Link href="/rooms">rooms</Link> and the <Link href="/dining">restaurant</Link>.
+        For directions from Madikeri and house rules, see{" "}
+        <Link href="/plan-your-stay">plan your stay</Link>.
       </PageNote>
       <CTA />
     </>
