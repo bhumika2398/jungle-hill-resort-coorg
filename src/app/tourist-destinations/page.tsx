@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { BedDouble, MapPin, MessageCircle, Utensils, Waves } from "lucide-react";
 import { DestinationBrowser } from "@/components/sections/DestinationBrowser";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { PageHero } from "@/components/shared/PageHero";
@@ -15,6 +15,13 @@ export const metadata = buildMetadata({
   path: "/tourist-destinations",
 });
 
+const trust = [
+  { icon: MapPin, text: "5 km from Madikeri" },
+  { icon: BedDouble, text: "13 rooms" },
+  { icon: Utensils, text: "Restaurant 7 AM to 10 PM" },
+  { icon: Waves, text: "Pool and kids park" },
+] as const;
+
 export default function TouristDestinationsPage() {
   return (
     <>
@@ -24,27 +31,41 @@ export default function TouristDestinationsPage() {
       <JsonLd data={destinationsJsonLd()} />
       <PageHero
         label="Destinations"
-        lines={[{ text: "Places to visit" }, { text: "around ", emphasis: "Coorg." }]}
+        lines={[{ text: "Places to visit" }, { text: "around Coorg." }]}
         description={<p>{destinationsIntro}</p>}
       />
 
       <section aria-label="Places near the resort" className="pb-[var(--space-section)]">
         <div className="page-container">
           <DestinationBrowser destinations={destinations} />
-          <p className="mt-8 text-small text-body">{destinationsNote}</p>
+          <p className="mt-6 text-small text-body/80">{destinationsNote}</p>
+
+          <ul
+            aria-label="About the resort"
+            className="mt-[var(--space-section)] grid grid-cols-2 gap-5 rounded-[6px] border border-line bg-card p-5 lg:grid-cols-4"
+          >
+            {trust.map(({ icon: Icon, text }) => (
+              <li key={text} className="flex items-center gap-3 text-small">
+                <Icon
+                  size={22}
+                  strokeWidth={1.5}
+                  aria-hidden="true"
+                  className="shrink-0 text-olive"
+                />
+                {text}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      
       <section
         aria-label="Plan your stay"
-        className="section-space bg-surface theme-sand text-body"
+        className="section-space theme-sand bg-surface text-body"
       >
         <div className="page-container">
           <p className="label-mono text-body">Plan your stay</p>
-          <h2 className="mt-4 max-w-[18ch] text-h2">
-            Stay close to all of it.
-          </h2>
+          <h2 className="mt-3 max-w-[18ch] text-h2">Stay close to all of it.</h2>
           <p className="mt-4 max-w-[46ch] text-body/80">
             Tell us your dates and who is coming. We reply with availability and rates.
           </p>

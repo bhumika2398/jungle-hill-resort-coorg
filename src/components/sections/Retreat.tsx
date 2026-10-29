@@ -17,7 +17,7 @@ const stats: { value: string; count?: number; suffix?: string; label: string }[]
 const strip = [
   { label: "Pool", href: "/experiences#swimming-pool" },
   { label: "Kids Park", href: "/experiences#kids-park" },
-  { label: "Games", href: "/experiences#indoor-games" },
+  { label: "Games", href: "/experiences#games" },
   { label: "Restaurant", href: "/dining" },
 ];
 

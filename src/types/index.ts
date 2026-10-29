@@ -74,6 +74,8 @@ export type GalleryCategory =
 
 export interface GalleryImage extends ImageAsset {
   category: GalleryCategory;
+  /** Short serif title for the gallery carousel, e.g. "Swimming Pool". */
+  title?: string;
 }
 
 export interface Testimonial {

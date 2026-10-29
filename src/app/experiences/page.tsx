@@ -1,11 +1,15 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { RevealImage } from "@/components/animations/RevealImage";
 import { CTA } from "@/components/sections/CTA";
 import { PageHero } from "@/components/shared/PageHero";
-import { PhotoGrid } from "@/components/shared/PhotoGrid";
+import { Photo } from "@/components/shared/Photo";
+import { dining } from "@/data/dining";
 import { experiences } from "@/data/experiences";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { cn } from "@/lib/utils";
 
 export const metadata = buildMetadata({
   title: "Pool, kids park and games",
@@ -14,28 +18,59 @@ export const metadata = buildMetadata({
   path: "/experiences",
 });
 
-/** Short facts read as one line; longer ones as a tidy list. */
-function Facts({ facts }: { facts: string[] }) {
-  if (facts.length === 0) return null;
-  if (facts.every((fact) => fact.length < 18)) {
-    return <p className="mt-4 text-small text-body/80">{facts.join(" · ")}</p>;
-  }
-  return (
-    <ul className="mt-4 space-y-1.5 text-small text-body/80">
-      {facts.map((fact) => (
-        <li key={fact} className="flex gap-3">
-          <span aria-hidden="true" className="mt-[0.6em] h-1 w-1 shrink-0 bg-olive" />
-          {fact}
-        </li>
-      ))}
-    </ul>
-  );
-}
+const bySlug = (slug: string) => experiences.find((item) => item.slug === slug);
+const pool = bySlug("swimming-pool");
+const kids = bySlug("kids-park");
+const indoor = bySlug("indoor-games");
+
+/** Four blocks, one photo each. Facts come straight from the resort's own information. */
+const blocks = [
+  pool && {
+    id: "swimming-pool",
+    label: "Pool",
+    title: "Swimming pool",
+    summary: pool.summary,
+    facts: pool.facts.slice(0, 4),
+    image: pool.images[0],
+  },
+  kids && {
+    id: "kids-park",
+    label: "Kids",
+    title: "Kids park",
+    summary: kids.summary,
+    facts: ["For children under 10", "See-saw", "Giraffe slide", "Swings"],
+    image: kids.images[0],
+  },
+  indoor && {
+    id: "games",
+    label: "Games",
+    title: "Indoor and outdoor games",
+    summary:
+      "Carrom, table tennis, ludo, chess and foosball indoors, and shuttle badminton outdoors, within the property premises.",
+    facts: ["Carrom and table tennis", "Ludo and chess", "Foosball", "Shuttle badminton"],
+    image: indoor.images[1] ?? indoor.images[0],
+  },
+  {
+    id: "restaurant",
+    label: "Dining",
+    title: "Restaurant",
+    summary:
+      "South Indian, North Indian and Chinese food, served through the day in the estate.",
+    facts: [dining.hours, "Last order at 9:30 PM", "Orders 30 to 40 minutes ahead"],
+    image: dining.images[0],
+    href: "/dining",
+  },
+].filter(Boolean) as {
+  id: string;
+  label: string;
+  title: string;
+  summary: string;
+  facts: string[];
+  image: (typeof dining.images)[number] | undefined;
+  href?: string;
+}[];
 
 export default function ExperiencesPage() {
-  const withPhotos = experiences.filter((item) => item.images.length > 0);
-  const withoutPhotos = experiences.filter((item) => item.images.length === 0);
-
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Experiences", path: "/experiences" }])} />
@@ -51,45 +86,50 @@ export default function ExperiencesPage() {
       />
 
       <section aria-label="Things to do" className="pb-[var(--space-section)]">
-        <ol className="page-container space-y-10 lg:space-y-12">
-          {withPhotos.map((item) => (
+        <ol className="page-container space-y-8 lg:space-y-10">
+          {blocks.map((block, index) => (
             <li
-              key={item.slug}
-              id={item.slug}
-              className="grid scroll-mt-28 items-start gap-5 lg:grid-cols-12 lg:gap-12"
+              key={block.id}
+              id={block.id}
+              className="grid scroll-mt-28 items-center gap-5 lg:grid-cols-2 lg:gap-12"
             >
-              <div className="lg:col-span-4 lg:pt-2">
-                <p className="label-mono text-body/70">{item.label}</p>
-                <h2 className="mt-2 text-h3">{item.title}</h2>
-                <p className="mt-3 max-w-[40ch] text-body">{item.summary}</p>
-                <Facts facts={item.facts} />
-              </div>
-              <div className="lg:col-span-8">
-                <PhotoGrid images={item.images} />
+              <RevealImage className={cn(index % 2 === 1 && "lg:order-2")}>
+                <div className="relative h-[260px] overflow-hidden rounded-[6px] bg-card sm:h-[360px]">
+                  <Photo
+                    image={block.image}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </RevealImage>
+              <div>
+                <p className="label-mono text-body/70">{block.label}</p>
+                <h2 className="mt-2 text-h3">{block.title}</h2>
+                <p className="mt-3 max-w-[46ch] text-body">{block.summary}</p>
+                <ul className="mt-4 grid gap-x-6 gap-y-1.5 text-small text-body/80 sm:grid-cols-2">
+                  {block.facts.map((fact) => (
+                    <li key={fact} className="flex gap-3">
+                      <span
+                        aria-hidden="true"
+                        className="mt-[0.6em] h-1 w-1 shrink-0 bg-olive"
+                      />
+                      {fact}
+                    </li>
+                  ))}
+                </ul>
+                {block.href && (
+                  <Link
+                    href={block.href}
+                    className="link-underline mt-4 inline-flex items-center gap-2 font-medium text-burgundy"
+                  >
+                    See the restaurant{" "}
+                    <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" />
+                  </Link>
+                )}
               </div>
             </li>
           ))}
         </ol>
-
-        {withoutPhotos.length > 0 && (
-          <div className="page-container mt-10 grid gap-5 lg:mt-12 lg:grid-cols-12 lg:gap-12">
-            {withoutPhotos.map((item) => (
-              <div key={item.slug} id={item.slug} className="scroll-mt-28 lg:col-span-4">
-                <p className="label-mono text-body/70">{item.label}</p>
-                <h2 className="mt-2 text-h3">{item.title}</h2>
-                <p className="mt-3 max-w-[40ch] text-body">{item.summary}</p>
-                <Facts facts={item.facts} />
-                {/* TODO: add a photo to public/images/experiences and reference it in data/experiences.ts */}
-              </div>
-            ))}
-          </div>
-        )}
-
-        <p className="page-container mt-8">
-          <Link href="/gallery" className="link-underline font-medium text-burgundy">
-            More photographs in the gallery
-          </Link>
-        </p>
       </section>
 
       <CTA />

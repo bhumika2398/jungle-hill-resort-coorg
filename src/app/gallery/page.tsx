@@ -1,5 +1,7 @@
 import { GalleryBrowser } from "@/components/sections/GalleryBrowser";
 import { PageHero } from "@/components/shared/PageHero";
+import { Photo } from "@/components/shared/Photo";
+import { photo } from "@/lib/images";
 import { galleryCategories as allCategories } from "@/data/gallery";
 import { getGallery } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/metadata";
@@ -15,13 +17,23 @@ export const metadata = buildMetadata({
 
 export const revalidate = 3600;
 
+// A faint misty-valley photograph behind the whole page, under a heavy ivory wash.
+const backdrop = photo(
+  "/images/gallery/grounds-misty-valley.jpg",
+  "Mist over the valley beyond the resort's tiled roofs",
+);
+
 export default async function GalleryPage() {
   const gallery = await getGallery();
   const galleryCategories = allCategories.filter((category) =>
     gallery.some((image) => image.category === category),
   );
   return (
-    <>
+    <div className="theme-ivory relative isolate overflow-hidden bg-surface text-body">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <Photo image={backdrop} fill sizes="100vw" />
+        <div className="absolute inset-0 bg-surface/[0.86]" />
+      </div>
       <JsonLd data={breadcrumbJsonLd([{ name: "Gallery", path: "/gallery" }])} />
       <PageHero
         label="Gallery"
@@ -33,14 +45,11 @@ export default async function GalleryPage() {
           </p>
         }
       />
-      <section
-        aria-label="Photographs"
-        className="section-space relative isolate overflow-hidden bg-burgundy text-ivory"
-      >
+      <section aria-label="Photographs" className="pb-[var(--space-section)]">
         <div className="page-container">
           <GalleryBrowser images={gallery} categories={galleryCategories} />
         </div>
       </section>
-    </>
+    </div>
   );
 }

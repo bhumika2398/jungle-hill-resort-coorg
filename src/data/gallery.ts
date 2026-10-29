@@ -70,7 +70,34 @@ const ALT: Record<string, string> = {
   "restaurant-hall-01":
     "Restaurant hall with dark wood tables and a view into the plantation",
   "restaurant-hall-02": "Restaurant seating under a high timber roof with bamboo blinds",
+  "paver-path-cottages":
+    "Red paver path curving past tiled-roof cottages among palms and tall trees",
+  "hero-a-dusk-cottages":
+    "Cottages and the main house at dusk with a white staircase and a red paver driveway",
+  "hero-b-coffee-view":
+    "View through coffee plants and bamboo down to red-roofed cottages, with misty hills",
 };
+
+function titleOf(stem: string, category: GalleryCategory): string {
+  if (stem.startsWith("games-table-tennis")) return "Table Tennis";
+  if (stem.startsWith("games-foosball")) return "Foosball";
+  if (stem.startsWith("games-carrom")) return "Carrom";
+  if (stem.startsWith("lounge")) return "The Lounge";
+  switch (category) {
+    case "Pool":
+      return "Swimming Pool";
+    case "Dining":
+      return "The Restaurant";
+    case "Kids Park":
+      return "Kids Park";
+    case "Reception":
+      return "Reception";
+    case "Games":
+      return "Games";
+    default:
+      return "The Grounds";
+  }
+}
 
 function categoryOf(stem: string): GalleryCategory {
   if (stem.startsWith("reception")) return "Reception";
@@ -90,7 +117,11 @@ function humanise(stem: string) {
 const fromFolders: GalleryImage[] = compact(
   Object.keys(imageManifest)
     .filter(
-      (key) => key.startsWith("/images/gallery/") || key.startsWith("/images/dining/"),
+      (key) =>
+        key.startsWith("/images/gallery/") ||
+        key.startsWith("/images/dining/") ||
+        key.startsWith("/images/experiences/") ||
+        (key.startsWith("/images/hero/") && key.endsWith(".jpg")),
     )
     .sort((a, b) => a.localeCompare(b))
     .map((key): GalleryImage | null => {
@@ -99,7 +130,9 @@ const fromFolders: GalleryImage[] = compact(
         .pop()!
         .replace(/\.[a-z]+$/i, "");
       const image = photo(key, ALT[stem] ?? humanise(stem));
-      return image ? { ...image, category: categoryOf(stem) } : null;
+      if (!image) return null;
+      const category = categoryOf(stem);
+      return { ...image, category, title: titleOf(stem, category) };
     }),
 );
 
@@ -118,12 +151,11 @@ const DUPLICATES = new Set([
   "/images/rooms/standard-non-ac-cottage/bedroom-07.jpg",
 ]);
 
-// A taste of every room category (all room photos are on the room pages).
+// Every room photo, so the gallery is complete.
 const roomShots: GalleryImage[] = rooms.flatMap((room) =>
   room.images
     .filter((image) => !DUPLICATES.has(image.src))
-    .slice(0, 6)
-    .map((image): GalleryImage => ({ ...image, category: "Rooms" })),
+    .map((image): GalleryImage => ({ ...image, category: "Rooms", title: room.name })),
 );
 
 const order: GalleryCategory[] = [
