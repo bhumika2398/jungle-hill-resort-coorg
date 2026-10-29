@@ -25,19 +25,22 @@ export default async function GalleryPage() {
       <JsonLd data={breadcrumbJsonLd([{ name: "Gallery", path: "/gallery" }])} />
       <PageHero
         label="Gallery"
-        lines={[{ text: "The property," }, { text: "as it ", emphasis: "is." }]}
+        lines={[{ text: "The property," }, { text: "as it is." }]}
         description={
           <p>
-            Real photographs of the resort. Filter by category, or open any photo full
-            size.
+            Real photographs of the resort. Browse the photographs, filter by category, or
+            open any photo full size.
           </p>
         }
       />
-      <section aria-label="Photographs" className="pb-[var(--space-section)]">
+      <section
+        aria-label="Photographs"
+        className="section-space relative isolate overflow-hidden bg-burgundy text-ivory"
+      >
         <div className="page-container">
           <GalleryBrowser images={gallery} categories={galleryCategories} />
         </div>
       </section>
-          </>
+    </>
   );
 }
