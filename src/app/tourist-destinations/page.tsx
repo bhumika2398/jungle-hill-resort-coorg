@@ -3,7 +3,6 @@ import { MessageCircle } from "lucide-react";
 import { DestinationBrowser } from "@/components/sections/DestinationBrowser";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { PageHero } from "@/components/shared/PageHero";
-import { PageNote } from "@/components/shared/PageNote";
 import { destinations, destinationsIntro, destinationsNote } from "@/data/destinations";
 import { whatsappLink } from "@/lib/contact";
 import { buildMetadata } from "@/lib/metadata";
@@ -36,12 +35,7 @@ export default function TouristDestinationsPage() {
         </div>
       </section>
 
-      <PageNote>
-        Stay in one of our <Link href="/rooms">rooms</Link>, eat at the{" "}
-        <Link href="/dining">restaurant</Link>, and see{" "}
-        <Link href="/plan-your-stay">how to reach us from Madikeri</Link>.
-      </PageNote>
-
+      
       <section
         aria-label="Plan your stay"
         className="section-space bg-surface theme-sand text-body"

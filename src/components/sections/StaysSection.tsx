@@ -15,7 +15,7 @@ export function StaysSection() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <SectionHeader
             tone="dark"
-            label="02 — The stays"
+            label="The stays"
             lines={[{ text: "Four ways" }, { text: "to ", emphasis: "stay." }]}
             description={<p>Rates are on enquiry, for your dates.</p>}
           />

@@ -8,8 +8,6 @@ import { mailLink, mapsHref, telLink, whatsappLink } from "@/lib/contact";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd, contactPageJsonLd } from "@/lib/structured-data";
-import { PageNote } from "@/components/shared/PageNote";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Contact and enquiries",
@@ -122,9 +120,6 @@ export default function ContactPage() {
           </aside>
         </div>
       </section>
-      <PageNote>
-        Looking for somewhere to stay near Madikeri? See the <Link href="/rooms">rooms</Link>, the <Link href="/dining">restaurant</Link>, and <Link href="/plan-your-stay">directions and check-in times</Link>.
-      </PageNote>
-    </>
+          </>
   );
 }

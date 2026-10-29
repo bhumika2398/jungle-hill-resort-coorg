@@ -42,7 +42,7 @@ export function Retreat() {
         <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8">
             <SectionHeader
-              label="01 — The retreat"
+              label="The retreat"
               lines={[{ text: "Coffee, pepper" }, { text: "and ", emphasis: "quiet." }]}
             />
             <p className="mt-5 max-w-[48ch] text-body-lg">

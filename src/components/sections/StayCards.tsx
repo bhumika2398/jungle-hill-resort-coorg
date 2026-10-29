@@ -77,13 +77,7 @@ function StayCard({ room }: { room: Room }) {
         </h3>
         <p className="mt-1.5 line-clamp-2 text-small text-body">{room.summary}</p>
 
-        <ul className="label-mono mt-3 grid grid-cols-3 gap-1.5 text-[0.58rem] text-body">
-          {room.highlights.map((fact) => (
-            <li key={fact} className="rounded-[6px] border border-line px-1.5 py-1.5">
-              {fact}
-            </li>
-          ))}
-        </ul>
+        <p className="mt-3 text-small text-body/80">{room.highlights.join(" · ")}</p>
 
         <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-4">
           <Link href={`/rooms/${room.slug}`} className="btn btn-primary !min-h-10 !px-4">

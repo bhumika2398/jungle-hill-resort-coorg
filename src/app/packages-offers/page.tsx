@@ -21,7 +21,7 @@ export default async function PackagesOffersPage() {
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Packages and offers", path: "/packages-offers" }])} />
       <PageHero
-        label="06 — Packages and offers"
+        label="Packages and offers"
         lines={[{ text: "Rates," }, { text: "on ", emphasis: "request." }]}
         description={
           <p>

@@ -10,7 +10,7 @@ export function About() {
       <div className="page-container grid gap-8 lg:grid-cols-12 lg:gap-6">
         <div className="lg:col-span-6">
           <SectionHeader
-            label="01 / Welcome"
+            label="Welcome"
             lines={[{ text: "Coffee, pepper" }, { text: "and ", emphasis: "quiet." }]}
           />
           <Reveal className="mt-4 max-w-xl space-y-5">

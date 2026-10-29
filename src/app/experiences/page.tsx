@@ -8,7 +8,6 @@ import { experiences } from "@/data/experiences";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
-import { PageNote } from "@/components/shared/PageNote";
 
 export const metadata = buildMetadata({
   title: "Pool, kids park and games",
@@ -22,7 +21,7 @@ export default function ExperiencesPage() {
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Experiences", path: "/experiences" }])} />
       <PageHero
-        label="03 — On the property"
+        label="On the property"
         lines={[
           { text: "Water, swings," },
           { text: "and ", emphasis: "slow", after: " games." },
@@ -78,13 +77,7 @@ export default function ExperiencesPage() {
         </p>
       </section>
 
-      <PageNote>
-        The pool, kids play area and games are all on the estate, close to the{" "}
-        <Link href="/rooms">rooms</Link> and the <Link href="/dining">restaurant</Link>.
-        For directions from Madikeri and house rules, see{" "}
-        <Link href="/plan-your-stay">plan your stay</Link>.
-      </PageNote>
-      <CTA />
+            <CTA />
     </>
   );
 }

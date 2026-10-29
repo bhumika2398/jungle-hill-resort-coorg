@@ -25,7 +25,7 @@ export function Experiences() {
     <section id="experiences" aria-label="Things to do" className="section-space">
       <div className="page-container">
         <SectionHeader
-          label="03 / On the property"
+          label="On the property"
           lines={[
             { text: "Water, swings," },
             { text: "and ", emphasis: "slow", after: " games." },

@@ -6,8 +6,6 @@ import { getRooms } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
-import { PageNote } from "@/components/shared/PageNote";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Stays: rooms and cottages",
@@ -25,7 +23,7 @@ export default async function RoomsPage() {
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Stays", path: "/rooms" }])} />
       <PageHero
-        label="02 — Stays"
+        label="Stays"
         lines={[{ text: "Four ways" }, { text: "to ", emphasis: "stay." }]}
         description={
           <p>
@@ -93,15 +91,7 @@ export default async function RoomsPage() {
         </div>
       </section>
 
-      <PageNote>
-        The four room types at Jungle Hill Resort sit inside a coffee and pepper estate, 5
-        km from Madikeri on the way to Virajpet. Meals are served in the{" "}
-        <Link href="/dining">restaurant</Link>, the pool and play area are described under{" "}
-        <Link href="/experiences">experiences</Link>, and{" "}
-        <Link href="/plan-your-stay">plan your stay</Link> has directions from Madikeri
-        and check-in times.
-      </PageNote>
-      <CTA />
+            <CTA />
     </>
   );
 }

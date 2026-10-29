@@ -19,7 +19,7 @@ export function Location() {
       <div className="page-container grid gap-8 lg:grid-cols-12 lg:gap-6">
         <div className="lg:col-span-6">
           <SectionHeader
-            label="08 / Find us"
+            label="Find us"
             lines={[
               { text: "Five kilometres" },
               { text: "from ", emphasis: "Madikeri." },

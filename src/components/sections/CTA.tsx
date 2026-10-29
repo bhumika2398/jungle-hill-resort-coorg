@@ -22,10 +22,9 @@ export function CTA() {
       <div aria-hidden="true" className="absolute inset-0 bg-ivory/90" />
       <div className="page-container relative grid gap-8 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-7">
-          <p className="label-mono text-body">05 — Enquire</p>
           <RevealText
             lines={[{ text: "Ask us about" }, { text: "your ", emphasis: "dates." }]}
-            className="mt-4 text-h1"
+            className="text-h2"
           />
           <p className="mt-4 max-w-[46ch] text-body/80">
             Tell us when you would like to come and who is coming. We reply with

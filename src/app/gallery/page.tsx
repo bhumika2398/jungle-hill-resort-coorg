@@ -5,8 +5,6 @@ import { getGallery } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
-import { PageNote } from "@/components/shared/PageNote";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Gallery",
@@ -26,7 +24,7 @@ export default async function GalleryPage() {
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Gallery", path: "/gallery" }])} />
       <PageHero
-        label="07 — Gallery"
+        label="Gallery"
         lines={[{ text: "The property," }, { text: "as it ", emphasis: "is." }]}
         description={
           <p>
@@ -40,9 +38,6 @@ export default async function GalleryPage() {
           <GalleryBrowser images={gallery} categories={galleryCategories} />
         </div>
       </section>
-      <PageNote>
-        Every photograph here was taken at the resort. For the full picture of each room, see <Link href="/rooms">stays</Link>, and for how to get here from Madikeri, <Link href="/plan-your-stay">plan your stay</Link>.
-      </PageNote>
-    </>
+          </>
   );
 }

@@ -20,7 +20,7 @@ export function PageHero({ label, lines, description, aside }: PageHeroProps) {
       <div className="page-container grid gap-6 lg:grid-cols-12">
         <div className="lg:col-span-8">
           <p className="label-mono text-body">{label}</p>
-          <RevealText as="h1" immediate lines={lines} className="mt-4 text-h1" />
+          <RevealText as="h1" immediate lines={lines} className="mt-3 text-h2" />
           {description && (
             <div className="mt-5 max-w-xl text-lg text-body">{description}</div>
           )}

@@ -30,7 +30,7 @@ export function ResortPlanSection({
         {heading && (
           <SectionHeader
             tone="dark"
-            label="03 — The resort plan"
+            label="The resort plan"
             lines={[
               { text: "Find your way" },
               { text: "around the ", emphasis: "estate." },

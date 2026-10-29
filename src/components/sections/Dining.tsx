@@ -19,7 +19,7 @@ export function Dining() {
         <div className="lg:col-span-6">
           <SectionHeader
             tone="dark"
-            label="04 / Restaurant"
+            label="Restaurant"
             lines={[{ text: "A table" }, { text: "in the ", emphasis: "estate." }]}
             description={
               <p>

@@ -7,8 +7,6 @@ import { gallery } from "@/data/gallery";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd, restaurantJsonLd } from "@/lib/structured-data";
-import { PageNote } from "@/components/shared/PageNote";
-import Link from "next/link";
 
 export const metadata = buildMetadata({
   title: "Restaurant",
@@ -31,7 +29,7 @@ export default function DiningPage() {
       <JsonLd data={breadcrumbJsonLd([{ name: "Dining", path: "/dining" }])} />
       <JsonLd data={restaurantJsonLd()} />
       <PageHero
-        label="04 — Restaurant"
+        label="Restaurant"
         lines={[{ text: "A table" }, { text: "in the ", emphasis: "estate." }]}
         description={
           <p>
@@ -81,10 +79,7 @@ export default function DiningPage() {
         </section>
       )}
 
-      <PageNote>
-        The restaurant is on the estate at Jungle Hill Resort, 5 km from Madikeri. Choose a room from our <Link href="/rooms">stays</Link>, see what else is on the property under <Link href="/experiences">experiences</Link>, and read <Link href="/plan-your-stay">plan your stay</Link> before you arrive.
-      </PageNote>
-      <CTA />
+            <CTA />
     </>
   );
 }
