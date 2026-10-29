@@ -30,7 +30,7 @@ export default function DiningPage() {
       <JsonLd data={restaurantJsonLd()} />
       <PageHero
         label="Restaurant"
-        lines={[{ text: "A table" }, { text: "in the ", emphasis: "estate." }]}
+        lines={[{ text: "A table" }, { text: "in the estate." }]}
         description={
           <p>
             The in-house restaurant serves South Indian, North Indian and Chinese food
@@ -41,26 +41,22 @@ export default function DiningPage() {
 
       <section
         aria-label="Meal times"
-        className="section-space bg-surface theme-sage text-body"
+        className="section-space theme-sage bg-surface text-body"
       >
-        <div className="page-container grid gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+        <div className="page-container grid gap-5 lg:grid-cols-2 lg:gap-8">
+          <div className="shadow-soft rounded-[6px] border border-line bg-card p-6 sm:p-8">
             <MealTimetable meals={dining.meals} hours={dining.hours} />
-            <ul className="mt-8 flex flex-wrap gap-2" aria-label="Cuisines">
-              {dining.cuisines.map((cuisine) => (
-                <li key={cuisine} className="label-mono border border-line px-3 py-2">
-                  {cuisine}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-6 text-small text-body/80">{dining.cuisines.join(" · ")}</p>
           </div>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <h2 className="label-mono !font-mono text-xs text-body">
-              Ordering guidelines
-            </h2>
-            <ul className="mt-4">
+          <div className="shadow-soft rounded-[6px] border border-line bg-card p-6 sm:p-8">
+            <h2 className="label-mono text-body/70">Ordering notes</h2>
+            <ul className="mt-4 space-y-3">
               {dining.guidelines.map((guideline) => (
-                <li key={guideline} className=" py-4 text-lg">
+                <li key={guideline} className="flex gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.65em] h-1 w-1 shrink-0 bg-olive"
+                  />
                   {guideline}
                 </li>
               ))}
@@ -72,14 +68,13 @@ export default function DiningPage() {
       {photos.length > 0 && (
         <section aria-label="Restaurant photographs" className="section-space">
           <div className="page-container">
-            <p className="label-mono text-body">The restaurant</p>
-            <h2 className="mt-4 mb-6 text-h3">Where you will eat</h2>
+            <h2 className="mb-5 text-h3">Where you will eat</h2>
             <PhotoGrid images={photos} mainRatio="aspect-[21/9]" />
           </div>
         </section>
       )}
 
-            <CTA />
+      <CTA />
     </>
   );
 }

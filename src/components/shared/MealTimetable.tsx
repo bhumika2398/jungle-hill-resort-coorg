@@ -1,30 +1,21 @@
 import type { MealTime } from "@/types";
-import { cn } from "@/lib/utils";
 
 interface MealTimetableProps {
   meals: MealTime[];
   hours: string;
-  tone?: "light" | "dark";
 }
 
 /** Restaurant timetable: open hours on top, then each meal and its window. */
-export function MealTimetable({ meals, hours, tone = "light" }: MealTimetableProps) {
-  const line = tone === "light" ? "border-line" : "border-line";
+export function MealTimetable({ meals, hours }: MealTimetableProps) {
   return (
     <div>
-      <p className="label-mono opacity-75">Open daily</p>
-      <p className="mt-1 font-display text-4xl">{hours}</p>
-      <dl className={cn("mt-6", line)}>
+      <p className="label-mono text-body/70">Open daily</p>
+      <p className="mt-1 font-display text-3xl">{hours}</p>
+      <dl className="mt-5 space-y-2.5">
         {meals.map((meal) => (
-          <div
-            key={meal.name}
-            className={cn(
-              "flex items-baseline justify-between gap-6 py-3",
-              line,
-            )}
-          >
+          <div key={meal.name} className="flex items-baseline justify-between gap-6">
             <dt>{meal.name}</dt>
-            <dd className="label-mono shrink-0">{meal.time}</dd>
+            <dd className="shrink-0 text-small text-body/80 tabular-nums">{meal.time}</dd>
           </div>
         ))}
       </dl>
