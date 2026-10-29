@@ -74,7 +74,7 @@ export default function DiningPage() {
           <div className="page-container">
             <p className="label-mono text-body">The restaurant</p>
             <h2 className="mt-4 mb-6 text-h3">Where you will eat</h2>
-            <PhotoGrid images={photos} />
+            <PhotoGrid images={photos} mainRatio="aspect-[21/9]" />
           </div>
         </section>
       )}
