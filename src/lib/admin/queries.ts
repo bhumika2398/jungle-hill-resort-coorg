@@ -1,11 +1,16 @@
 import "server-only";
 import { createServiceClient } from "@/lib/supabase/server";
 import type { LibraryItem } from "./content-types";
+import { usageByPath } from "./media-ops";
 import { STATUSES, type EnquiryRow, type EnquiryStatus } from "./enquiries";
 
 export const PAGE_SIZE = 20;
 
-export async function listEnquiries(opts: { status?: EnquiryStatus; q?: string; page: number }) {
+export async function listEnquiries(opts: {
+  status?: EnquiryStatus;
+  q?: string;
+  page: number;
+}) {
   let query = createServiceClient()
     .from("enquiries")
     .select("*", { count: "exact" })
@@ -45,7 +50,7 @@ export async function statusCounts() {
   return Object.fromEntries(entries) as Record<EnquiryStatus, number>;
 }
 
-const LIBRARY_COLUMNS = "id, url, alt, folder, mime, width, height, size_bytes";
+const LIBRARY_COLUMNS = "id, path, url, alt, folder, mime, width, height, size_bytes";
 
 export async function listMedia(): Promise<LibraryItem[]> {
   const { data, error } = await createServiceClient()
@@ -55,7 +60,9 @@ export async function listMedia(): Promise<LibraryItem[]> {
     .order("path", { ascending: true })
     .limit(1000);
   if (error) throw new Error(error.message);
-  return (data ?? []) as LibraryItem[];
+  const items = (data ?? []) as LibraryItem[];
+  const usage = await usageByPath(items);
+  return items.map((item) => ({ ...item, usedIn: usage.get(item.path) ?? [] }));
 }
 
 export async function getContentValue<T>(key: string): Promise<T | null> {

@@ -5,8 +5,14 @@ import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { ResortPlan } from "@/components/sections/ResortPlan";
 import { PageHero } from "@/components/shared/PageHero";
 import { siteConfig } from "@/config/site.config";
+<<<<<<< HEAD
 import { dining } from "@/data/dining";
 import { faqs } from "@/data/faqs";
+=======
+import { faqs as staticFaqs } from "@/data/faqs";
+import { restaurantFaqAnswer } from "@/lib/restaurant";
+import { getRestaurant } from "@/lib/site-content";
+>>>>>>> 3854fae197c58984ac3d6874f530173ab57763de
 import { checkTimes } from "@/data/policies";
 import { gettingHere } from "@/data/resortPlan";
 import { mapsHref } from "@/lib/contact";
@@ -48,6 +54,7 @@ const houseRules = [
   "A quiet resort, no parties.",
 ];
 
+<<<<<<< HEAD
 /** One label, one heading, short content. */
 function Block({
   id,
@@ -80,6 +87,16 @@ function Block({
     </section>
   );
 }
+=======
+export const revalidate = 3600;
+
+export default async function PlanYourStayPage() {
+  const restaurant = await getRestaurant();
+  const faqs = staticFaqs.map((faq) =>
+    faq.id === "restaurant" ? { ...faq, answer: restaurantFaqAnswer(restaurant) } : faq,
+  );
+  const embed = `https://www.google.com/maps?q=${encodeURIComponent(siteConfig.contact.addressOneLine)}&output=embed`;
+>>>>>>> 3854fae197c58984ac3d6874f530173ab57763de
 
 export default function PlanYourStayPage() {
   return (
@@ -127,6 +144,7 @@ export default function PlanYourStayPage() {
                 </span>
               ))}
             </address>
+<<<<<<< HEAD
             <p className="mt-3">5 km from Madikeri on the way to Virajpet.</p>
             <a
               href={mapsHref()}
@@ -139,9 +157,58 @@ export default function PlanYourStayPage() {
             </a>
             <p className="mt-4 max-w-[46ch] text-small text-body/80">
               The access road is narrow for two vehicles to pass, so please drive slowly.
+=======
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={mapsHref()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary gap-2"
+              >
+                <MapPin size={16} strokeWidth={1.5} aria-hidden="true" /> Open in Google
+                Maps
+              </a>
+              <a href={telLink} className="btn btn-outline gap-2">
+                <Phone size={16} strokeWidth={1.5} aria-hidden="true" />{" "}
+                {siteConfig.contact.phoneDisplay}
+              </a>
+              <a href={mailLink} className="btn btn-outline gap-2">
+                <Mail size={16} strokeWidth={1.5} aria-hidden="true" /> Email
+              </a>
+            </div>
+
+            <h2 className="label-mono mt-8 !font-mono text-xs text-body">How to reach</h2>
+            <ol className="mt-4">
+              {steps.map((step, index) => (
+                <li key={step} className="grid grid-cols-[2.5rem_1fr] gap-2 py-4">
+                  <span className="label-mono pt-1 text-body">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+            {/* TODO: nearby Coorg ideas, only once the resort confirms what to recommend */}
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="theme-sage aspect-[4/3] w-full overflow-hidden border border-line bg-surface">
+              <iframe
+                title="Map showing Jungle Hill Resort"
+                src={embed}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-full w-full border-0"
+              />
+            </div>
+            <p className="mt-3 text-sm text-body">
+              The map searches for the address. If the pin looks off, use the Google Maps
+              button or call us.
+>>>>>>> 3854fae197c58984ac3d6874f530173ab57763de
             </p>
           </div>
 
+<<<<<<< HEAD
           <ol aria-label="Route" className="grid grid-cols-2 gap-3 self-start">
             {gettingHere.map((step, index) => (
               <li
@@ -154,6 +221,53 @@ export default function PlanYourStayPage() {
                 <p className="mt-1 font-display text-xl leading-tight">{step.label}</p>
                 <p className="text-small text-body/80">{step.detail}</p>
               </li>
+=======
+      <section
+        aria-label="Check-in and check-out"
+        className="section-space theme-sage relative isolate overflow-hidden bg-surface"
+      >
+        <div className="page-container grid gap-6 sm:grid-cols-3">
+          <div>
+            <p className="label-mono text-body">Check-in</p>
+            <p className="mt-2 font-display text-5xl">{checkTimes.checkIn}</p>
+          </div>
+          <div>
+            <p className="label-mono text-body">Check-out</p>
+            <p className="mt-2 font-display text-5xl">{checkTimes.checkOut}</p>
+          </div>
+          <p className="text-body">
+            {checkTimes.note} ID proof is mandatory, visitors are not allowed after 8:30
+            PM, and there is no loud music or loud sound after 10:00 PM.
+          </p>
+        </div>
+      </section>
+
+      <section
+        aria-label="Frequently asked questions"
+        className="section-space relative isolate overflow-hidden"
+      >
+        <div className="page-container grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <p className="label-mono text-body">Questions</p>
+            <h2 className="mt-4 text-h3">
+              Things people <em className="font-light text-body">ask.</em>
+            </h2>
+          </div>
+          <div className="lg:col-span-8">
+            {faqs.map((faq) => (
+              <details key={faq.id} className="group py-5">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 font-display text-2xl">
+                  {faq.question}
+                  <span
+                    aria-hidden="true"
+                    className="label-mono text-body transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 max-w-2xl text-body">{faq.answer}</p>
+              </details>
+>>>>>>> 3854fae197c58984ac3d6874f530173ab57763de
             ))}
           </ol>
         </div>

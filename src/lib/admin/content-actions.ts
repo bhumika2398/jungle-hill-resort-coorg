@@ -1,12 +1,16 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { requireAdmin } from "@/lib/admin/auth";
-import { KEYS, invalidate } from "@/lib/cache";
-import { GALLERY_CATEGORIES, type EditorItem } from "@/lib/admin/content-types";
+import { CONTENT_TAG, KEYS, invalidate } from "@/lib/cache";
+import {
+  GALLERY_CATEGORIES,
+  type EditorItem,
+  type RestaurantInput,
+} from "@/lib/admin/content-types";
 import type { SaveState } from "@/lib/admin/actions";
 import { photo } from "@/lib/images";
-import { GALLERY_KEY, roomKey } from "@/lib/site-content";
+import { GALLERY_KEY, RESTAURANT_KEY, roomKey } from "@/lib/site-content";
 import { createServiceClient } from "@/lib/supabase/server";
 import { getRoomBySlug } from "@/data/rooms";
 import type { GalleryCategory, GalleryImage, ImageAsset } from "@/types";
@@ -58,6 +62,7 @@ async function enrich(
 /** Clears the shared cache first, then the pages, so regenerated pages read fresh data. */
 async function refresh() {
   await invalidate(KEYS.content, KEYS.dashboard);
+  updateTag(CONTENT_TAG);
   revalidatePath("/", "layout");
 }
 
@@ -172,5 +177,54 @@ export async function deleteMedia(id: string): Promise<SaveState> {
   const { error: deleteError } = await supabase.from("media").delete().eq("id", id);
   if (deleteError) return { error: "Could not delete. Try again." };
   revalidatePath("/admin/media");
+  return { ok: true };
+}
+
+const clean = (value: unknown, max: number) =>
+  typeof value === "string" ? value.trim().slice(0, max) : "";
+
+export async function saveRestaurantContent(input: RestaurantInput): Promise<SaveState> {
+  await requireAdmin();
+
+  const intro = clean(input.intro, 700);
+  const opens = clean(input.opens, 20);
+  const closes = clean(input.closes, 20);
+  if (!intro) return { error: "Write the welcome paragraph." };
+  if (!opens || !closes) return { error: "Enter the opening and closing time." };
+
+  const cuisines = (input.cuisines ?? [])
+    .map((item) => clean(item, 40))
+    .filter(Boolean)
+    .slice(0, 8);
+  const guidelines = (input.guidelines ?? [])
+    .map((item) => clean(item, 300))
+    .filter(Boolean)
+    .slice(0, 12);
+  const meals = (input.meals ?? [])
+    .map((meal) => ({ name: clean(meal.name, 60), time: clean(meal.time, 40) }))
+    .filter((meal) => meal.name || meal.time)
+    .slice(0, 10);
+  if (meals.some((meal) => !meal.name || !meal.time)) {
+    return { error: "Each meal needs a name and a time." };
+  }
+  if (meals.length === 0) return { error: "Add at least one meal." };
+
+  const { error } = await createServiceClient().from("site_content").upsert({
+    key: RESTAURANT_KEY,
+    value: { intro, opens, closes, cuisines, meals, guidelines },
+  });
+  if (error) return { error: "Could not save. Try again." };
+  await refresh();
+  return { ok: true };
+}
+
+export async function resetRestaurantContent(): Promise<SaveState> {
+  await requireAdmin();
+  const { error } = await createServiceClient()
+    .from("site_content")
+    .delete()
+    .eq("key", RESTAURANT_KEY);
+  if (error) return { error: "Could not reset. Try again." };
+  await refresh();
   return { ok: true };
 }

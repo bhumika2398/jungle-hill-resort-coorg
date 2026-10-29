@@ -32,7 +32,17 @@ function Card({
   );
 }
 
-function Kpi({ label, value, sub, href }: { label: string; value: string; sub?: React.ReactNode; href?: string }) {
+function Kpi({
+  label,
+  value,
+  sub,
+  href,
+}: {
+  label: string;
+  value: string;
+  sub?: React.ReactNode;
+  href?: string;
+}) {
   const body = (
     <>
       <span className="block text-small opacity-80">{label}</span>
@@ -57,8 +67,9 @@ export default async function DashboardPage() {
   } catch (error) {
     return (
       <p role="alert" className="rounded-[6px] border border-line bg-card p-4 text-small">
-        Could not load the dashboard ({error instanceof Error ? error.message : "unknown error"}). Check
-        that the migrations in supabase/migrations have been run.
+        Could not load the dashboard (
+        {error instanceof Error ? error.message : "unknown error"}). Check that the
+        migrations in supabase/migrations have been run.
       </p>
     );
   }
@@ -67,7 +78,9 @@ export default async function DashboardPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-h3">Dashboard</h1>
-        <p className="mt-1 text-small">Enquiries and content at a glance. Figures cover the last 12 months.</p>
+        <p className="mt-1 text-small">
+          Enquiries and content at a glance. Figures cover the last 12 months.
+        </p>
       </div>
 
       <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
@@ -78,7 +91,9 @@ export default async function DashboardPage() {
             href="/admin/enquiries?status=new"
             sub={
               d.needsAttention > 0 ? (
-                <span className="font-medium">{d.needsAttention} waiting over 24 hours</span>
+                <span className="font-medium">
+                  {d.needsAttention} waiting over 24 hours
+                </span>
               ) : (
                 "All answered within a day"
               )
@@ -86,10 +101,18 @@ export default async function DashboardPage() {
           />
         </li>
         <li>
-          <Kpi label="Last 7 days" value={String(d.last7)} sub={<Delta now={d.last7} before={d.prev7} />} />
+          <Kpi
+            label="Last 7 days"
+            value={String(d.last7)}
+            sub={<Delta now={d.last7} before={d.prev7} />}
+          />
         </li>
         <li>
-          <Kpi label="Last 30 days" value={String(d.last30)} sub={`${d.total} in the last 12 months`} />
+          <Kpi
+            label="Last 30 days"
+            value={String(d.last30)}
+            sub={`${d.total} in the last 12 months`}
+          />
         </li>
         <li>
           <Kpi
@@ -109,7 +132,11 @@ export default async function DashboardPage() {
         </Card>
         <Card title="Pipeline" hint="Where every enquiry stands">
           <StackedBar
-            segments={STATUSES.map((s) => ({ label: STATUS_LABEL[s], count: d.status[s], color: STATUS_COLOR[s] }))}
+            segments={STATUSES.map((s) => ({
+              label: STATUS_LABEL[s],
+              count: d.status[s],
+              color: STATUS_COLOR[s],
+            }))}
           />
         </Card>
       </div>
@@ -119,7 +146,11 @@ export default async function DashboardPage() {
           <HBars rows={d.stays} />
         </Card>
         <Card title="Guests want to visit in" hint="By requested check-in, next 6 months">
-          <HBars rows={d.months.map((m) => ({ label: m.label, count: m.count }))} tone="olive" empty="No dates requested yet." />
+          <HBars
+            rows={d.months.map((m) => ({ label: m.label, count: m.count }))}
+            tone="olive"
+            empty="No dates requested yet."
+          />
         </Card>
         <Card title="Occasions" hint="Why guests are travelling">
           <HBars rows={d.occasions} tone="olive" />
@@ -127,7 +158,11 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card title="Upcoming arrivals" hint="Requested check-ins, soonest first" className="lg:col-span-2">
+        <Card
+          title="Upcoming arrivals"
+          hint="Requested check-ins, soonest first"
+          className="lg:col-span-2"
+        >
           {d.upcoming.length === 0 ? (
             <p className="text-small">No upcoming arrivals.</p>
           ) : (
@@ -157,11 +192,15 @@ export default async function DashboardPage() {
           <dl className="space-y-3 text-small">
             <div className="flex justify-between gap-3">
               <dt>Average stay</dt>
-              <dd className="font-medium">{d.avgNights ? `${d.avgNights.toFixed(1)} nights` : "-"}</dd>
+              <dd className="font-medium">
+                {d.avgNights ? `${d.avgNights.toFixed(1)} nights` : "-"}
+              </dd>
             </div>
             <div className="flex justify-between gap-3">
               <dt>Average party</dt>
-              <dd className="font-medium">{d.avgGuests ? `${d.avgGuests.toFixed(1)} guests` : "-"}</dd>
+              <dd className="font-medium">
+                {d.avgGuests ? `${d.avgGuests.toFixed(1)} guests` : "-"}
+              </dd>
             </div>
             {d.sources.map((s) => (
               <div key={s.label} className="flex justify-between gap-3">
@@ -176,25 +215,37 @@ export default async function DashboardPage() {
       <Card title="Site content" hint="What you manage from this panel">
         <ul className="grid gap-3 text-small sm:grid-cols-2 lg:grid-cols-4">
           <li>
-            <Link href="/admin/rooms" className="block rounded-[6px] border border-line p-3 hover:border-burgundy">
+            <Link
+              href="/admin/rooms"
+              className="block rounded-[6px] border border-line p-3 hover:border-burgundy"
+            >
               <span className="block font-medium">Prices</span>
               {d.assets.pricedRooms} of {d.assets.totalRooms} stays have a price
             </Link>
           </li>
           <li>
-            <Link href="/admin/rooms" className="block rounded-[6px] border border-line p-3 hover:border-burgundy">
+            <Link
+              href="/admin/rooms"
+              className="block rounded-[6px] border border-line p-3 hover:border-burgundy"
+            >
               <span className="block font-medium">Room photos</span>
               {d.assets.customRooms} of {d.assets.totalRooms} stays customised
             </Link>
           </li>
           <li>
-            <Link href="/admin/gallery" className="block rounded-[6px] border border-line p-3 hover:border-burgundy">
+            <Link
+              href="/admin/gallery"
+              className="block rounded-[6px] border border-line p-3 hover:border-burgundy"
+            >
               <span className="block font-medium">Gallery</span>
               {d.assets.customGallery ? "Customised" : "Original photos"}
             </Link>
           </li>
           <li>
-            <Link href="/admin/media" className="block rounded-[6px] border border-line p-3 hover:border-burgundy">
+            <Link
+              href="/admin/media"
+              className="block rounded-[6px] border border-line p-3 hover:border-burgundy"
+            >
               <span className="block font-medium">Media library</span>
               {d.assets.count} files · {formatBytes(d.assets.bytes)}
             </Link>

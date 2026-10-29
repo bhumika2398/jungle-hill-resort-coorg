@@ -10,7 +10,10 @@ export function DeleteButton({ id }: { id: string }) {
         if (!window.confirm("Delete this enquiry permanently?")) event.preventDefault();
       }}
     >
-      <button type="submit" className="min-h-11 rounded-[6px] border border-line px-4 text-small">
+      <button
+        type="submit"
+        className="min-h-11 rounded-[6px] border border-line px-4 text-small"
+      >
         Delete enquiry
       </button>
     </form>

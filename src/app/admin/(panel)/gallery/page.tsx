@@ -17,7 +17,8 @@ export default async function AdminGalleryPage() {
       <div>
         <h1 className="font-display text-h3">Gallery</h1>
         <p className="mt-1 text-small">
-          The photos on the public Gallery page. Add, remove, reorder, describe and categorise them.
+          The photos on the public Gallery page. Add, remove, reorder, describe and
+          categorise them.
         </p>
       </div>
       <GalleryEditor

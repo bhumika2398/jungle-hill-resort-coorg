@@ -9,6 +9,9 @@ const url = process.env.UPSTASH_REDIS_REST_URL;
 const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 export const redis = url && token ? new Redis({ url, token }) : null;
 
+/** Next fetch-cache tag for everything read from site_content. Cleared by the admin on every save. */
+export const CONTENT_TAG = "site-content";
+
 /** Cache keys. Bump the suffix if the cached shape changes. */
 export const KEYS = {
   content: "content:v1",

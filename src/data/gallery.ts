@@ -70,12 +70,23 @@ const ALT: Record<string, string> = {
   "restaurant-hall-01":
     "Restaurant hall with dark wood tables and a view into the plantation",
   "restaurant-hall-02": "Restaurant seating under a high timber roof with bamboo blinds",
+<<<<<<< HEAD
   "paver-path-cottages":
     "Red paver path curving past tiled-roof cottages among palms and tall trees",
   "hero-a-dusk-cottages":
     "Cottages and the main house at dusk with a white staircase and a red paver driveway",
   "hero-b-coffee-view":
     "View through coffee plants and bamboo down to red-roofed cottages, with misty hills",
+=======
+  "restaurant-open-air-hall":
+    "Open-sided restaurant under a high timber roof, with rows of wooden tables and chairs looking out to the trees",
+  "restaurant-open-air-exterior":
+    "Open-air restaurant seen from the garden, with its sign, coffee plants and palms in front",
+  "restaurant-open-air-blinds":
+    "Open-air restaurant hall with wooden tables and chairs, bamboo blinds along one wall and a polished timber floor under a high roof",
+  "grounds-evening-path-lights":
+    "Lit paver path curving through tall trees at night, with a play area glowing below",
+>>>>>>> 3854fae197c58984ac3d6874f530173ab57763de
 };
 
 function titleOf(stem: string, category: GalleryCategory): string {
