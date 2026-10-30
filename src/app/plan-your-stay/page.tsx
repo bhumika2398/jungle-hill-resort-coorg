@@ -5,11 +5,12 @@ import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { ResortPlan } from "@/components/sections/ResortPlan";
 import { PageHero } from "@/components/shared/PageHero";
 import { siteConfig } from "@/config/site.config";
-import { dining } from "@/data/dining";
-import { faqs } from "@/data/faqs";
+import { faqs as staticFaqs } from "@/data/faqs";
 import { checkTimes } from "@/data/policies";
 import { gettingHere } from "@/data/resortPlan";
 import { mapsHref } from "@/lib/contact";
+import { restaurantFaqAnswer, shortHours } from "@/lib/restaurant";
+import { getRestaurant } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/structured-data";
@@ -28,14 +29,6 @@ const sections = [
   { id: "stay-details", label: "Stay details" },
   { id: "house-rules", label: "House rules" },
   { id: "faqs", label: "FAQs" },
-] as const;
-
-const stayDetails = [
-  ["Check-in", checkTimes.checkIn],
-  ["Check-out", checkTimes.checkOut],
-  ["Early check-in or late check-out", "Chargeable and subject to availability"],
-  ["Restaurant", dining.hours.replace(":00", "").replace(":00", "")],
-  ["Pool", "7 AM to 7 PM"],
 ] as const;
 
 const houseRules = [
@@ -81,7 +74,21 @@ function Block({
   );
 }
 
-export default function PlanYourStayPage() {
+export const revalidate = 3600;
+
+export default async function PlanYourStayPage() {
+  const restaurant = await getRestaurant();
+  const faqs = staticFaqs.map((faq) =>
+    faq.id === "restaurant" ? { ...faq, answer: restaurantFaqAnswer(restaurant) } : faq,
+  );
+  const stayDetails = [
+    ["Check-in", checkTimes.checkIn],
+    ["Check-out", checkTimes.checkOut],
+    ["Early check-in or late check-out", "Chargeable and subject to availability"],
+    ["Restaurant", shortHours(restaurant.opens, restaurant.closes)],
+    ["Pool", "7 AM to 7 PM"],
+  ] as const;
+
   return (
     <>
       <JsonLd

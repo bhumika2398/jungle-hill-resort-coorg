@@ -6,6 +6,8 @@ import { homeImages } from "@/data/site";
 import { buildMetadata } from "@/lib/metadata";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { shortHours } from "@/lib/restaurant";
+import { getRestaurant } from "@/lib/site-content";
 
 export const metadata = buildMetadata({
   title: "About",
@@ -14,17 +16,28 @@ export const metadata = buildMetadata({
   path: "/about",
 });
 
-const facts = [
+const staticFacts = [
   ["5 km", "from Madikeri, on the way to Virajpet"],
   ["13", "rooms in Standard Non-AC, Deluxe AC and Family AC categories"],
-  ["7 AM – 10 PM", "restaurant: South Indian, North Indian and Chinese"],
+  ["", "restaurant"],
   [
     "Pool · Play · Games",
     "swimming pool, kids play area, indoor games and shuttle badminton",
   ],
 ];
 
-export default function AboutPage() {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const restaurant = await getRestaurant();
+  const facts = staticFacts.map(([value, label]) =>
+    label === "restaurant"
+      ? ([
+          shortHours(restaurant.opens, restaurant.closes),
+          `restaurant: ${restaurant.cuisines.join(", ")}`,
+        ] as const)
+      : ([value, label] as const),
+  );
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "About", path: "/about" }])} />
@@ -49,8 +62,8 @@ export default function AboutPage() {
               the day.
             </p>
             <p>
-              The in-house restaurant serves South Indian, North Indian and Chinese
-              cuisine through the day.
+              The in-house restaurant serves {restaurant.cuisines.join(", ")} cuisine
+              through the day.
             </p>
             <p>
               It is designed for relaxation and a peaceful stay in nature. Quiet hours

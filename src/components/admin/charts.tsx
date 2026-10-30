@@ -7,7 +7,9 @@ interface DailyBarsProps {
 }
 
 const dayLabel = (day: string) =>
-  new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short" }).format(new Date(`${day}T00:00:00`));
+  new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short" }).format(
+    new Date(`${day}T00:00:00`),
+  );
 
 export function DailyBars({ data, label }: DailyBarsProps) {
   const max = Math.max(1, ...data.map((d) => d.count));
@@ -24,13 +26,32 @@ export function DailyBars({ data, label }: DailyBarsProps) {
 
   return (
     <figure>
-      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} className="h-auto w-full">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        role="img"
+        aria-label={label}
+        className="h-auto w-full"
+      >
         {ticks.map((tick) => {
           const y = 8 + plotH - (tick / ceil) * plotH;
           return (
             <g key={tick}>
-              <line x1={left} x2={W} y1={y} y2={y} stroke="currentColor" strokeOpacity={0.14} />
-              <text x={left - 6} y={y + 4} textAnchor="end" fontSize={11} fill="currentColor" opacity={0.7}>
+              <line
+                x1={left}
+                x2={W}
+                y1={y}
+                y2={y}
+                stroke="currentColor"
+                strokeOpacity={0.14}
+              />
+              <text
+                x={left - 6}
+                y={y + 4}
+                textAnchor="end"
+                fontSize={11}
+                fill="currentColor"
+                opacity={0.7}
+              >
                 {tick}
               </text>
             </g>
@@ -51,7 +72,14 @@ export function DailyBars({ data, label }: DailyBarsProps) {
                 fill="var(--color-burgundy)"
               />
               {i % 7 === 0 || i === data.length - 1 ? (
-                <text x={x + barW / 2} y={H - 6} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.7}>
+                <text
+                  x={x + barW / 2}
+                  y={H - 6}
+                  textAnchor="middle"
+                  fontSize={11}
+                  fill="currentColor"
+                  opacity={0.7}
+                >
                   {dayLabel(d.day)}
                 </text>
               ) : null}
@@ -70,7 +98,11 @@ interface HBarsProps {
   empty?: string;
 }
 
-export function HBars({ rows, tone = "burgundy", empty = "Nothing to show yet." }: HBarsProps) {
+export function HBars({
+  rows,
+  tone = "burgundy",
+  empty = "Nothing to show yet.",
+}: HBarsProps) {
   const max = Math.max(1, ...rows.map((row) => row.count));
   const total = rows.reduce((sum, row) => sum + row.count, 0);
   if (rows.length === 0) return <p className="text-small">{empty}</p>;
@@ -82,15 +114,22 @@ export function HBars({ rows, tone = "burgundy", empty = "Nothing to show yet." 
             <span>{row.label}</span>
             <span className="tabular-nums">
               {row.count}
-              <span className="opacity-60"> · {Math.round((row.count / total) * 100)}%</span>
+              <span className="opacity-60">
+                {" "}
+                · {Math.round((row.count / total) * 100)}%
+              </span>
             </span>
           </div>
-          <div className="mt-1 h-2.5 overflow-hidden rounded-full bg-olive/15" aria-hidden="true">
+          <div
+            className="mt-1 h-2.5 overflow-hidden rounded-full bg-olive/15"
+            aria-hidden="true"
+          >
             <div
               className="h-full rounded-full"
               style={{
                 width: `${(row.count / max) * 100}%`,
-                background: tone === "olive" ? "var(--color-olive)" : "var(--color-burgundy)",
+                background:
+                  tone === "olive" ? "var(--color-olive)" : "var(--color-burgundy)",
               }}
             />
           </div>
@@ -118,13 +157,21 @@ export function StackedBar({ segments }: StackedBarProps) {
         {segments
           .filter((s) => s.count > 0)
           .map((s) => (
-            <div key={s.label} style={{ width: `${(s.count / total) * 100}%`, background: s.color }} title={`${s.label}: ${s.count}`} />
+            <div
+              key={s.label}
+              style={{ width: `${(s.count / total) * 100}%`, background: s.color }}
+              title={`${s.label}: ${s.count}`}
+            />
           ))}
       </div>
       <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-small">
         {segments.map((s) => (
           <li key={s.label} className="flex items-center gap-1.5">
-            <span className="inline-block h-2.5 w-2.5 rounded-full border border-line" style={{ background: s.color }} aria-hidden="true" />
+            <span
+              className="inline-block h-2.5 w-2.5 rounded-full border border-line"
+              style={{ background: s.color }}
+              aria-hidden="true"
+            />
             {s.label} <span className="tabular-nums opacity-70">{s.count}</span>
           </li>
         ))}
@@ -139,7 +186,8 @@ export function Delta({ now, before }: { now: number; before: number }) {
   const pct = Math.round(((now - before) / before) * 100);
   return (
     <span>
-      {pct >= 0 ? "▲" : "▼"} {Math.abs(pct)}% <span className="opacity-70">vs previous 7 days</span>
+      {pct >= 0 ? "▲" : "▼"} {Math.abs(pct)}%{" "}
+      <span className="opacity-70">vs previous 7 days</span>
     </span>
   );
 }

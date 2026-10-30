@@ -38,7 +38,9 @@ export function resortJsonLd() {
     checkinTime: "12:00",
     checkoutTime: "11:00",
     numberOfRooms: 13,
-    ...(siteConfig.socials.length ? { sameAs: siteConfig.socials.map((s) => s.href) } : {}),
+    ...(siteConfig.socials.length
+      ? { sameAs: siteConfig.socials.map((s) => s.href) }
+      : {}),
     amenityFeature: [
       "Swimming pool",
       "Kids play area",
@@ -70,13 +72,19 @@ export function roomJsonLd(room: Room) {
   };
 }
 
-export function restaurantJsonLd() {
+export function restaurantJsonLd(
+  info: { cuisines: string[]; opens: string; closes: string } = {
+    cuisines: dining.cuisines,
+    opens: "07:00",
+    closes: "22:00",
+  },
+) {
   return {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     name: `Restaurant at ${siteConfig.shortName}`,
     url: abs("/dining"),
-    servesCuisine: dining.cuisines,
+    servesCuisine: info.cuisines,
     telephone: siteConfig.contact.phoneTel,
     address,
     openingHoursSpecification: {
@@ -90,8 +98,8 @@ export function restaurantJsonLd() {
         "Saturday",
         "Sunday",
       ],
-      opens: "07:00",
-      closes: "22:00",
+      opens: info.opens,
+      closes: info.closes,
     },
     parentOrganization: { "@id": `${ORIGIN}/#resort` },
   };

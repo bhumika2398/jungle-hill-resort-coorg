@@ -1,14 +1,11 @@
-import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
-import sharp from "sharp";
 import { getAdmin } from "@/lib/admin/auth";
+import { newPath, processImage } from "@/lib/admin/media-ops";
 import { createServiceClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
 const MAX_FILES = 12;
-const MAX_BYTES = 15 * 1024 * 1024;
-const MAX_WIDTH = 2400;
 
 /** Admin-only photo upload: resizes to a web-friendly WebP, stores it in Supabase, registers it. */
 export async function POST(request: Request) {
@@ -17,9 +14,14 @@ export async function POST(request: Request) {
   }
 
   const form = await request.formData().catch(() => null);
-  const files = (form?.getAll("files") ?? []).filter((item): item is File => item instanceof File);
+  const files = (form?.getAll("files") ?? []).filter(
+    (item): item is File => item instanceof File,
+  );
   if (files.length === 0) {
-    return NextResponse.json({ ok: false, error: "Choose at least one photo." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Choose at least one photo." },
+      { status: 400 },
+    );
   }
   if (files.length > MAX_FILES) {
     return NextResponse.json(
@@ -29,25 +31,22 @@ export async function POST(request: Request) {
   }
 
   const folderRaw = String(form?.get("folder") ?? "uploads");
-  const folder = folderRaw.replace(/[^a-z0-9/_-]/gi, "").replace(/^\/+|\/+$/g, "") || "uploads";
+  const folder =
+    folderRaw.replace(/[^a-z0-9/_-]/gi, "").replace(/^\/+|\/+$/g, "") || "uploads";
   const supabase = createServiceClient();
 
   const saved = [];
   const failed: string[] = [];
   for (const file of files) {
     try {
-      if (!file.type.startsWith("image/") || file.size > MAX_BYTES) throw new Error("bad file");
-      const input = Buffer.from(await file.arrayBuffer());
-      const pipeline = sharp(input).rotate().resize({ width: MAX_WIDTH, withoutEnlargement: true });
-      const { data: bytes, info } = await pipeline
-        .webp({ quality: 82 })
-        .toBuffer({ resolveWithObject: true });
-      const tiny = await sharp(bytes).resize(12).blur().jpeg({ quality: 40 }).toBuffer();
-
-      const path = `${folder}/${randomUUID()}.webp`;
+      const image = await processImage(file);
+      const path = newPath(folder);
       const { error: uploadError } = await supabase.storage
         .from("media")
-        .upload(path, bytes, { contentType: "image/webp", cacheControl: "31536000" });
+        .upload(path, image.bytes, {
+          contentType: "image/webp",
+          cacheControl: "31536000",
+        });
       if (uploadError) throw uploadError;
 
       const { data: pub } = supabase.storage.from("media").getPublicUrl(path);
@@ -59,13 +58,13 @@ export async function POST(request: Request) {
           folder,
           mime: "image/webp",
           alt: "",
-          width: info.width,
-          height: info.height,
-          blur: `data:image/jpeg;base64,${tiny.toString("base64")}`,
-          size_bytes: bytes.length,
+          width: image.width,
+          height: image.height,
+          blur: image.blur,
+          size_bytes: image.bytes.length,
           original_name: file.name.slice(0, 200),
         })
-        .select("id, url, alt, folder, mime, width, height, size_bytes")
+        .select("id, path, url, alt, folder, mime, width, height, size_bytes")
         .single();
       if (error) {
         await supabase.storage.from("media").remove([path]);

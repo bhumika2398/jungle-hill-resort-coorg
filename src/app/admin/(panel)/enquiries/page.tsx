@@ -22,7 +22,8 @@ export default async function EnquiriesPage({ searchParams }: EnquiriesPageProps
   } catch (error) {
     return (
       <p role="alert" className="rounded-[6px] border border-line bg-card p-4 text-small">
-        Could not load enquiries ({error instanceof Error ? error.message : "unknown error"}).
+        Could not load enquiries (
+        {error instanceof Error ? error.message : "unknown error"}).
       </p>
     );
   }
@@ -66,7 +67,10 @@ export default async function EnquiriesPage({ searchParams }: EnquiriesPageProps
             aria-label="Search enquiries"
             className="min-h-11 rounded-[6px] border border-line bg-card px-3 text-small"
           />
-          <button type="submit" className="min-h-11 rounded-[6px] border border-line px-3 text-small">
+          <button
+            type="submit"
+            className="min-h-11 rounded-[6px] border border-line px-3 text-small"
+          >
             Search
           </button>
         </form>
@@ -125,12 +129,18 @@ export default async function EnquiriesPage({ searchParams }: EnquiriesPageProps
         </span>
         <span className="flex gap-3">
           {page > 1 ? (
-            <Link href={href({ page: page - 1 })} className="underline underline-offset-4">
+            <Link
+              href={href({ page: page - 1 })}
+              className="underline underline-offset-4"
+            >
               Previous
             </Link>
           ) : null}
           {page < pages ? (
-            <Link href={href({ page: page + 1 })} className="underline underline-offset-4">
+            <Link
+              href={href({ page: page + 1 })}
+              className="underline underline-offset-4"
+            >
               Next
             </Link>
           ) : null}
