@@ -16,7 +16,7 @@ const FALLBACK_MS = 3000;
 const STAGGER_MS = 100;
 
 const pill =
-  "floating-pill glass inline-flex items-center justify-center text-burgundy transition-[border-color,background-color] hover:border-burgundy hover:bg-card";
+  "floating-pill inline-flex items-center justify-center border border-burgundy bg-burgundy text-ivory shadow-[0_8px_24px_rgba(100,28,43,0.18)] transition-[background-color,border-color] duration-200 hover:border-[color-mix(in_srgb,var(--color-burgundy)_85%,black)] hover:bg-[color-mix(in_srgb,var(--color-burgundy)_85%,black)] focus-visible:shadow-[0_0_0_2px_var(--color-ivory)] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-burgundy";
 const round = "h-11 w-11 rounded-full";
 
 /**
