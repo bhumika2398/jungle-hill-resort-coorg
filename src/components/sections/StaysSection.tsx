@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { StayCards } from "@/components/sections/StayCards";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { rooms } from "@/data/rooms";

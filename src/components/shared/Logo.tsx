@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { siteConfig } from "@/config/site.config";
 import { cn } from "@/lib/utils";
 

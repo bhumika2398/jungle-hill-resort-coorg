@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { FooterCredit } from "@/components/layout/FooterCredit";
 import { Photo } from "@/components/shared/Photo";

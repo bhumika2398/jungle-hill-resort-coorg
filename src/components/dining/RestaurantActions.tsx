@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site.config";
 import { telLink, whatsappLink } from "@/lib/contact";

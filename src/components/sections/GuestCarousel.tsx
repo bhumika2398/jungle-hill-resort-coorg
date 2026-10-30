@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
   type KeyboardEvent,
 } from "react";
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/utils";

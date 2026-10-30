@@ -89,6 +89,17 @@
     scroll-behavior: auto !important;
   }
 
+  /* Anchor targets clear the fixed header. Without Lenis (touch, or a slow start) CSS glides to them,
+     except for reduced motion. */
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.lenis) {
+      scroll-behavior: smooth;
+    }
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -111,17 +122,6 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-  }
-
-  /* Film grain over everything, very faint */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 90;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: var(--grain);
   }
 
   h1,

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { MessageCircle } from "lucide-react";
 import { RevealText } from "@/components/animations/RevealText";
 import { NotesWall } from "@/components/sections/NotesWall";

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { useRef, useState, useSyncExternalStore } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";

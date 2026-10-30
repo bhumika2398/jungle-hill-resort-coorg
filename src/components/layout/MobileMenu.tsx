@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { usePathname } from "next/navigation";
 import { MessageCircle, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site.config";
 import { telLink, whatsappLink } from "@/lib/contact";
+import { lockSmoothScroll } from "@/lib/smooth-scroll";
 import { cn } from "@/lib/utils";
 import type { NavItem } from "@/types";
 
@@ -33,6 +34,7 @@ export function MobileMenu({ items, light = true }: MobileMenuProps) {
     if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const unlock = lockSmoothScroll();
     firstLink.current?.focus();
 
     const onKey = (event: KeyboardEvent) => {
@@ -61,6 +63,7 @@ export function MobileMenu({ items, light = true }: MobileMenuProps) {
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previous;
+      unlock();
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);

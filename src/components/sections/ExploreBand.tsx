@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { FadeUp } from "@/components/animations/FadeUp";
 import { ParallaxBg } from "@/components/animations/ParallaxBg";
 import { RevealText } from "@/components/animations/RevealText";

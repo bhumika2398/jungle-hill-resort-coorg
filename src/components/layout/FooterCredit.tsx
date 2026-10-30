@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site.config";
 

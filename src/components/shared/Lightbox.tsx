@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { GradeTint } from "@/components/shared/GradeTint";
+import { lockSmoothScroll } from "@/lib/smooth-scroll";
 import { cn } from "@/lib/utils";
 import type { ImageAsset } from "@/types";
 
@@ -35,9 +36,11 @@ export function Lightbox({
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const unlock = lockSmoothScroll();
     closeButton.current?.focus();
     return () => {
       document.body.style.overflow = previousOverflow;
+      unlock();
       previouslyFocused?.focus?.();
     };
   }, [open]);

@@ -1,3 +1,5 @@
+import { HoverLink as Link } from "@/components/shared/HoverLink";
+import { ArrowRight, BedDouble, CalendarDays, Clock, Users } from "lucide-react";
 import { CTA } from "@/components/sections/CTA";
 import { StayCards } from "@/components/sections/StayCards";
 import { PageHero } from "@/components/shared/PageHero";
@@ -42,56 +44,86 @@ export default async function RoomsPage() {
       />
 
       <section aria-label="All stays" className="pb-[var(--space-section)]">
-        <div className="page-container">
+        <div className="page-container pr-[4.25rem] lg:pr-20">
           <StayCards rooms={rooms} variant="page" />
         </div>
       </section>
 
       <section
         aria-label="Good to know"
-        className="section-space relative isolate overflow-hidden bg-surface theme-sage"
+        className="section-space theme-sage relative isolate overflow-hidden bg-surface"
       >
-        <div className="page-container grid gap-5 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <p className="label-mono text-body">Good to know</p>
-            <h2 className="mt-4 text-h3">Before you choose</h2>
-          </div>
-          <ul className="grid gap-5 sm:grid-cols-2 lg:col-span-7">
-            <li>
-              <h3 className="text-2xl">Who sleeps where</h3>
-              <p className="mt-2 text-body">
-                Standard Non-AC rooms and cottages take two adults and an infant only. The
-                Deluxe AC Room suits couples or small families, and the Family AC Room
-                sleeps up to four.
-              </p>
+        <div className="page-container pr-[4.25rem] lg:pr-20">
+          <p className="label-mono text-body/70">Good to know</p>
+          <h2 className="mt-2 text-h3">Before you choose</h2>
+
+          <ul className="mt-[var(--space-head)] grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <li className="rounded-[6px] border border-line bg-card p-4">
+              <Users
+                size={22}
+                strokeWidth={1.5}
+                aria-hidden="true"
+                className="text-olive"
+              />
+              <h3 className="mt-2 text-xl leading-tight">Who sleeps where</h3>
+              <ul className="mt-2 space-y-1 text-[0.95rem] leading-[1.55]">
+                <li>Standard Non-AC rooms and cottages: two adults and an infant only</li>
+                <li>Deluxe AC Room: couples or small families</li>
+                <li>Family AC Room: sleeps up to four</li>
+              </ul>
             </li>
-            <li>
-              <h3 className="text-2xl">Extra mattress</h3>
-              <p className="mt-2 text-body">
+            <li className="rounded-[6px] border border-line bg-card p-4">
+              <BedDouble
+                size={22}
+                strokeWidth={1.5}
+                aria-hidden="true"
+                className="text-olive"
+              />
+              <h3 className="mt-2 text-xl leading-tight">Extra mattress</h3>
+              <p className="mt-2 text-[0.95rem] leading-[1.55]">
                 In the Deluxe and Family rooms an extra mattress can be arranged on
                 request for one additional guest.
               </p>
             </li>
-            <li>
-              <h3 className="text-2xl">Arrival and departure</h3>
-              <p className="mt-2 text-body">
-                Check-in is at {checkTimes.checkIn} and check-out at {checkTimes.checkOut}
-                . {checkTimes.note}
-              </p>
+            <li className="rounded-[6px] border border-line bg-card p-4">
+              <Clock
+                size={22}
+                strokeWidth={1.5}
+                aria-hidden="true"
+                className="text-olive"
+              />
+              <h3 className="mt-2 text-xl leading-tight">Arrival and departure</h3>
+              <ul className="mt-2 space-y-1 text-[0.95rem] leading-[1.55]">
+                <li>Check-in is at {checkTimes.checkIn}</li>
+                <li>Check-out is at {checkTimes.checkOut}</li>
+                <li>{checkTimes.note}</li>
+              </ul>
             </li>
-            <li>
-              <h3 className="text-2xl">Rates</h3>
-              <p className="mt-2 text-body">
+            <li className="rounded-[6px] border border-line bg-card p-4">
+              <CalendarDays
+                size={22}
+                strokeWidth={1.5}
+                aria-hidden="true"
+                className="text-olive"
+              />
+              <h3 className="mt-2 text-xl leading-tight">Rates</h3>
+              <p className="mt-2 text-[0.95rem] leading-[1.55]">
                 {priced
                   ? "Starting rates are per night. Tell us your dates and who is travelling and we will confirm what is available and the exact rate."
                   : "Enquire for rates. Tell us your dates and who is travelling and we will reply with what is available."}
               </p>
+              <Link
+                href="/contact"
+                className="link-underline mt-2 inline-flex items-center gap-1 text-[0.95rem] font-medium text-burgundy"
+              >
+                Enquire <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
+              </Link>
             </li>
           </ul>
         </div>
       </section>
 
-            <CTA />
+      <CTA />
     </>
   );
 }

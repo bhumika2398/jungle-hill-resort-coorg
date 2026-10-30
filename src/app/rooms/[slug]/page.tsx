@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 import { RevealText } from "@/components/animations/RevealText";

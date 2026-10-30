@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { usePathname } from "next/navigation";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { Logo } from "@/components/shared/Logo";
@@ -24,7 +24,7 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-300",
         scrolled
-          ? "glass border-0 bg-ivory/80 text-body shadow-[0_6px_20px_rgba(100,28,43,0.08)] backdrop-blur-xl"
+          ? "border-0 bg-ivory/95 text-body shadow-[0_6px_20px_rgba(100,28,43,0.08)]"
           : "shadow-none",
         light && "",
       )}

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { LegalPage, type LegalSection } from "@/components/shared/LegalPage";
 import { siteConfig } from "@/config/site.config";

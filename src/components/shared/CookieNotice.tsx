@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { useState, useSyncExternalStore } from "react";
 import { COOKIE_NOTICE_KEY } from "@/lib/legal";
 

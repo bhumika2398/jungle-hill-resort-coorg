@@ -165,7 +165,7 @@ export function HeroMedia({ slides }: { slides: ResolvedHeroSlide[] }) {
             <div
               key={slide.src + i}
               className={cn(
-                "grade-filter absolute inset-0",
+                "absolute inset-0",
                 "transition-opacity ease-in-out",
                 showing ? "opacity-100" : "opacity-0",
                 active ? "z-10" : "z-0",
@@ -180,6 +180,7 @@ export function HeroMedia({ slides }: { slides: ResolvedHeroSlide[] }) {
                   sizes="100vw"
                   quality={70}
                   priority={i === 0}
+                  fetchPriority={i === 0 ? "high" : undefined}
                   onLoad={i === 0 ? onFirstPhotoLoaded : undefined}
                   placeholder={slide.blurDataURL ? "blur" : "empty"}
                   blurDataURL={slide.blurDataURL}

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { PageHero } from "@/components/shared/PageHero";
 
 export const metadata = { title: "Page not found" };

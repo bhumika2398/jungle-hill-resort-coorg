@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { BedDouble, MapPin, MessageCircle, Utensils, Waves } from "lucide-react";
 import { DestinationBrowser } from "@/components/sections/DestinationBrowser";
 import { JsonLd } from "@/components/shared/JsonLd";

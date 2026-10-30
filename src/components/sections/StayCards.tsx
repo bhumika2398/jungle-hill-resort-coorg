@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { FadeUp } from "@/components/animations/FadeUp";
 import { Lightbox } from "@/components/shared/LazyLightbox";
 import { Photo } from "@/components/shared/Photo";
@@ -114,13 +114,11 @@ export function StayCards({
     <ul
       className={cn(
         "grid gap-4",
-        variant === "home"
-          ? "sm:grid-cols-2 xl:grid-cols-4"
-          : "mx-auto max-w-[1080px] md:grid-cols-2",
+        variant === "home" ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-2",
       )}
     >
       {rooms.map((room, index) => (
-        <li key={room.slug} className="mx-auto w-full max-w-[520px] xl:max-w-none">
+        <li key={room.slug} className="w-full">
           <FadeUp index={index} className="h-full">
             <StayCard room={room} />
           </FadeUp>

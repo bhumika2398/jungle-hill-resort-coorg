@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { HoverLink as Link } from "@/components/shared/HoverLink";
 import { MapPin } from "lucide-react";
 import { Reveal } from "@/components/animations/Reveal";
 import { RevealImage } from "@/components/animations/RevealImage";
