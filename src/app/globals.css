@@ -43,11 +43,11 @@
 
   --container-page: 80rem;
   --spacing-gutter: clamp(1.25rem, 4vw, 3rem);
-  --space-section: clamp(1.5rem, 3vw, 2.5rem);
+  --space-section: clamp(1.25rem, 2.4vw, 2rem);
   /* Heading to content, paragraph gaps, grid gaps and card padding */
-  --space-head: 1.125rem;
-  --space-gap: 1.125rem;
-  --space-card: 1.125rem;
+  --space-head: 0.875rem;
+  --space-gap: 0.875rem;
+  --space-card: 1rem;
 }
 
 /* Section themes: each major section sets its own background, card, text and line colours. */
@@ -170,7 +170,7 @@
 
   /* The home page keeps the roomier rhythm; inner pages use the tighter default */
   .home-page {
-    --space-section: clamp(2rem, 4vw, 3.5rem);
+    --space-section: clamp(1.5rem, 3vw, 2.75rem);
   }
 
   .section-space {

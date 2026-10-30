@@ -26,10 +26,12 @@ const AUTOPLAY_MS = 6000;
 /** Horizontal offset from the centre card, in card widths, by distance: the row curves inwards. */
 const OFFSET = [0, 0.78, 1.38, 1.8];
 const SCALE = [1.08, 0.82, 0.7, 0.6];
-const FADE = [1, 0.7, 0.5, 0];
+/** Black dimming over the cards beside the centre; the outermost card is hidden. */
+const DIM = [0, 0.35, 0.55, 0.55];
+const FADE = [1, 1, 1, 0];
 
 const arrow =
-  "grid h-11 w-11 shrink-0 place-items-center rounded-full border border-burgundy text-burgundy transition-colors hover:bg-burgundy hover:text-ivory";
+  "grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ivory/70 text-ivory transition-colors hover:border-burgundy hover:bg-burgundy";
 
 /**
  * Curved 3D gallery: the current photo stands upright in the centre, the cards beside it turn
@@ -118,11 +120,11 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
   if (!current) return null;
 
   return (
-    <div className="text-body">
+    <div className="text-ivory">
       <div
         role="group"
         aria-label="Filter photos"
-        className="flex flex-wrap gap-x-6 gap-y-1"
+        className="-mx-[var(--spacing-gutter)] flex [scrollbar-width:none] gap-1.5 overflow-x-auto px-[var(--spacing-gutter)] sm:mx-0 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {(["All", ...categories] as const).map((item) => (
           <button
@@ -135,14 +137,19 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
               setOpen(null);
             }}
             className={cn(
-              "label-mono min-h-11 transition-colors",
-              category === item ? "text-burgundy" : "text-body/60 hover:text-body",
+              "label-mono min-h-9 shrink-0 rounded-full px-3 transition-colors",
+              category === item
+                ? "bg-burgundy text-ivory"
+                : "text-ivory/70 hover:text-ivory",
             )}
           >
             {item}
           </button>
         ))}
-        <p className="label-mono ml-auto self-center text-body" aria-live="polite">
+        <p
+          className="label-mono ml-auto hidden shrink-0 self-center text-ivory/80 sm:block"
+          aria-live="polite"
+        >
           {count} photos
         </p>
       </div>
@@ -207,7 +214,7 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
                     ? `Open photo full size: ${image.alt}`
                     : `Show photo: ${image.alt}`
                 }
-                className="group relative block h-full w-full overflow-hidden rounded-[6px] border border-line bg-card shadow-[0_18px_44px_rgba(100,28,43,0.22)]"
+                className="group relative block h-full w-full overflow-hidden rounded-[6px] border border-white/15 bg-black shadow-[0_18px_44px_rgba(0,0,0,0.55)]"
               >
                 <Photo
                   image={image}
@@ -219,16 +226,26 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
                     centre && "group-hover:scale-[1.03]",
                   )}
                 />
+                {!centre && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-black transition-opacity duration-[550ms]"
+                    style={{ opacity: DIM[distance] }}
+                  />
+                )}
                 {centre && (
                   <>
-                    <span className="glass label-mono absolute top-3 right-3 rounded-[4px] px-2.5 py-1 text-[0.6rem]">
+                    <span className="label-mono absolute top-3 right-3 rounded-[4px] border border-white/15 bg-black/45 px-2.5 py-1 text-[0.6rem] text-ivory backdrop-blur-[12px]">
                       {image.category}
                     </span>
-                    <span className="glass absolute inset-x-2 bottom-2 rounded-[6px] p-3 text-left">
+                    <span className="absolute inset-x-2 bottom-2 rounded-[6px] border border-white/15 bg-black/45 p-3 text-left text-ivory backdrop-blur-[12px]">
                       <span className="block font-display text-xl leading-tight">
                         {image.title ?? image.category}
                       </span>
-                      <span aria-hidden="true" className="mt-1.5 block h-px w-8 bg-burgundy" />
+                      <span
+                        aria-hidden="true"
+                        className="mt-1.5 block h-px w-8 bg-ivory"
+                      />
                       <span className="mt-1.5 line-clamp-2 block text-small">
                         {image.alt}
                       </span>
@@ -264,7 +281,7 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
         </button>
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-5" aria-live="polite">
+      <div className="mt-4 flex items-center justify-center gap-4" aria-live="polite">
         <button
           type="button"
           onClick={() => go(index - 1)}
@@ -275,7 +292,7 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
         </button>
         <p className="font-display text-2xl tabular-nums">
           {String(index + 1).padStart(2, "0")}
-          <span className="text-body/50"> / {String(count).padStart(2, "0")}</span>
+          <span className="text-ivory/60"> / {String(count).padStart(2, "0")}</span>
         </p>
         <button
           type="button"
@@ -302,8 +319,8 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
               className={cn(
                 "relative block h-14 w-14 overflow-hidden rounded-[4px] border transition-opacity",
                 i === index
-                  ? "border-burgundy opacity-100 ring-1 ring-burgundy"
-                  : "border-line opacity-60 hover:opacity-100",
+                  ? "border-ivory opacity-100 ring-2 ring-ivory"
+                  : "border-white/15 opacity-60 hover:opacity-100",
               )}
             >
               <Photo image={image} fill sizes="56px" />
@@ -313,6 +330,7 @@ export function GalleryBrowser({ images, categories }: GalleryBrowserProps) {
       </ul>
 
       <Lightbox
+        variant="black"
         images={visible}
         index={open}
         onClose={() => setOpen(null)}

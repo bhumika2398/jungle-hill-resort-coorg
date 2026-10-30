@@ -25,7 +25,13 @@ function roomDescription(room: Room) {
   const tail = ". Rates on enquiry.";
   let out = head + tail;
   for (const amenity of room.amenities) {
-    const next = `${head}, ${[...out.slice(head.length + 2, -tail.length).split(", ").filter(Boolean), amenity.toLowerCase()].join(", ")}${tail}`;
+    const next = `${head}, ${[
+      ...out
+        .slice(head.length + 2, -tail.length)
+        .split(", ")
+        .filter(Boolean),
+      amenity.toLowerCase(),
+    ].join(", ")}${tail}`;
     if (next.length > 160) break;
     out = next;
   }
@@ -91,9 +97,7 @@ export default async function RoomPage({ params }: RoomPageProps) {
             lines={[{ text: room.name }]}
             className="mt-4 text-h1"
           />
-          <p className="label-mono mt-3 text-body">
-            {roomLabel(room)}
-          </p>
+          <p className="label-mono mt-3 text-body">{roomLabel(room)}</p>
 
           <div className="mt-6">
             <BentoGallery
@@ -116,21 +120,18 @@ export default async function RoomPage({ params }: RoomPageProps) {
       </section>
 
       <section aria-label="About this stay" className="section-space">
-        <div className="page-container grid gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className="page-container grid gap-5 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-7">
             <p className="label-mono text-body">About this stay</p>
             <p className="mt-3 font-display text-h3">{room.summary}</p>
             <p className="mt-4 max-w-[58ch] text-body">{room.description}</p>
             {room.guestNotes.map((note) => (
-              <p
-                key={note}
-                className="mt-3 max-w-[58ch] border-l-2 border-line pl-4"
-              >
+              <p key={note} className="mt-3 max-w-[58ch] border-l-2 border-line pl-4">
                 {note}
               </p>
             ))}
 
-            <h2 className="label-mono mt-8 text-body">In the stay</h2>
+            <h2 className="label-mono mt-6 text-body">In the stay</h2>
             <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {room.amenities.map((amenity) => (
                 <li
@@ -142,19 +143,21 @@ export default async function RoomPage({ params }: RoomPageProps) {
               ))}
             </ul>
 
-            <h2 className="label-mono mt-8 text-body">House policies</h2>
-            <ul className="mt-3 space-y-2 text-small text-body">
-              <li>
-                Check-in {checkTimes.checkIn} · Check-out {checkTimes.checkOut}.{" "}
-                {checkTimes.note}
-              </li>
-              <li>ID proof is mandatory. Visitors are not allowed after 8:30 PM.</li>
-              <li>No loud music or loud sounds after 10:00 PM. Outside food is not permitted.</li>
-            </ul>
+            <h2 className="label-mono mt-6 text-body">Check-in and house rules</h2>
+            <p className="mt-2 text-small text-body">
+              Check-in {checkTimes.checkIn} · Check-out {checkTimes.checkOut}.{" "}
+              {checkTimes.note}{" "}
+              <Link
+                href="/plan-your-stay#house-rules"
+                className="link-underline font-medium text-burgundy"
+              >
+                House rules
+              </Link>
+            </p>
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="rounded-[6px] border border-line bg-card p-5 text-body hard-shadow lg:sticky lg:top-24">
+            <div className="hard-shadow rounded-[6px] border border-line bg-card p-5 text-body lg:sticky lg:top-24">
               <p className="label-mono text-body">{room.rateNote}</p>
               <p className="mt-2 font-display text-h4">{room.name}</p>
               <div className="mt-4 flex flex-col gap-3">
@@ -179,13 +182,11 @@ export default async function RoomPage({ params }: RoomPageProps) {
       <section
         id="enquire"
         aria-label={`Enquire about ${room.name}`}
-        className="section-space scroll-mt-20 bg-surface theme-sage"
+        className="section-space theme-sage scroll-mt-20 bg-surface"
       >
         <div className="page-container">
           <p className="label-mono text-body">Enquire</p>
-          <h2 className="mt-3 mb-6 text-h2">
-            Ask about {room.name}.
-          </h2>
+          <h2 className="mt-2 mb-4 text-h3">Ask about {room.name}.</h2>
           <Suspense fallback={<p className="text-body">Loading the form…</p>}>
             <EnquiryWizard defaultStay={room.slug} />
           </Suspense>
@@ -194,12 +195,9 @@ export default async function RoomPage({ params }: RoomPageProps) {
 
       <nav
         aria-label="Other stays"
-        className="page-container grid gap-6 py-[var(--space-section)] sm:grid-cols-2"
+        className="page-container grid gap-5 py-[var(--space-section)] sm:grid-cols-2"
       >
-        <Link
-          href={`/rooms/${previous.slug}`}
-          className="group pt-5"
-        >
+        <Link href={`/rooms/${previous.slug}`} className="group pt-5">
           <span className="label-mono flex items-center gap-2 text-body">
             <ArrowLeft size={14} strokeWidth={1.5} aria-hidden="true" /> Previous
           </span>
@@ -207,10 +205,7 @@ export default async function RoomPage({ params }: RoomPageProps) {
             {previous.name}
           </span>
         </Link>
-        <Link
-          href={`/rooms/${next.slug}`}
-          className="group pt-5 sm:text-right"
-        >
+        <Link href={`/rooms/${next.slug}`} className="group pt-5 sm:text-right">
           <span className="label-mono flex items-center gap-2 text-body sm:justify-end">
             Next <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
           </span>

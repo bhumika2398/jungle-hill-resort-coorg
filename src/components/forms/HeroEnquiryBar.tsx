@@ -32,7 +32,7 @@ export function HeroEnquiryBar() {
       <form
         onSubmit={handleSubmit}
         aria-label="Check availability"
-        className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-[1fr_1fr_0.55fr_1.2fr_auto] lg:items-end"
+        className="grid gap-4 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-[1fr_1fr_0.55fr_1.2fr_auto] lg:items-end"
       >
         <label className="label-mono block">
           Check-in

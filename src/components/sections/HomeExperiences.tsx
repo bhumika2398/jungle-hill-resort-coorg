@@ -59,7 +59,7 @@ export function HomeExperiences() {
       aria-label="Experiences"
       className="section-space theme-sand bg-surface text-body"
     >
-      <div className="page-container grid items-center gap-6 lg:grid-cols-12 lg:gap-8">
+      <div className="page-container grid items-center gap-5 lg:grid-cols-12 lg:gap-6">
         <div className="min-w-0 lg:col-span-5">
           <RevealImage className="mx-auto max-w-md lg:max-w-none">
             <div className="arch-frame relative h-[420px] overflow-hidden bg-card">

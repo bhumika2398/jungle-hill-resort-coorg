@@ -31,7 +31,7 @@ export function Footer() {
       </div>
 
       <div className="page-container relative py-[clamp(1.5rem,3vw,2.25rem)] pr-[4.25rem] lg:pr-20">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-[1.1fr_1.1fr_1.3fr_1fr] lg:gap-8">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-[1.1fr_1.1fr_1.3fr_1fr] lg:gap-6">
           <div>
             <p className="font-display text-[1.7rem] leading-none font-normal">
               Jungle Hill

@@ -86,12 +86,12 @@ export default function ExperiencesPage() {
       />
 
       <section aria-label="Things to do" className="pb-[var(--space-section)]">
-        <ol className="page-container space-y-6 lg:space-y-8">
+        <ol className="page-container space-y-5 lg:space-y-6">
           {blocks.map((block, index) => (
             <li
               key={block.id}
               id={block.id}
-              className="grid scroll-mt-28 items-center gap-5 lg:grid-cols-2 lg:gap-8"
+              className="grid scroll-mt-28 items-center gap-4 lg:grid-cols-2 lg:gap-6"
             >
               <RevealImage className={cn(index % 2 === 1 && "lg:order-2")}>
                 <div className="relative h-[260px] overflow-hidden rounded-[6px] bg-card sm:h-[360px]">

@@ -8,7 +8,7 @@ const ask = "Hello Jungle Hill Resort, I have a question about the restaurant.";
 /** Ways to reach the resort about the restaurant, plus the route to planning a stay. */
 export function RestaurantActions() {
   return (
-    <div className="mt-6 rounded-[6px] border border-line bg-surface p-5 sm:p-6">
+    <div className="mt-6 rounded-[6px] border border-line bg-surface p-4 sm:p-5">
       <p className="font-display text-2xl leading-tight">
         Questions about the restaurant?
       </p>

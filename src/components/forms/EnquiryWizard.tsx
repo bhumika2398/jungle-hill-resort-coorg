@@ -252,7 +252,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
   if (sent) {
     const mail = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent("Stay enquiry")}&body=${encodeURIComponent(sent.summary)}`;
     return (
-      <BoxCard className="p-5 sm:p-6" role="status">
+      <BoxCard className="p-4 sm:p-5" role="status">
         <p className="label-mono flex items-center gap-2 text-body">
           <Check
             size={16}
@@ -296,7 +296,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
   ];
 
   return (
-    <BoxCard className="p-5 sm:p-6">
+    <BoxCard className="p-4 sm:p-5">
       <ol
         aria-label="Progress"
         className="label-mono flex flex-wrap gap-x-6 gap-y-2 text-[0.68rem]"
@@ -346,8 +346,8 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
         </h2>
 
         {step === 0 && (
-          <div className="mt-6 grid gap-6">
-            <div className="grid gap-6 sm:grid-cols-2">
+          <div className="mt-6 grid gap-5">
+            <div className="grid gap-5 sm:grid-cols-2">
               <Input
                 label="Check-in"
                 type="date"
@@ -368,7 +368,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
                 {nights} {nights === 1 ? "night" : "nights"}
               </p>
             )}
-            <div className="grid gap-6 sm:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-4">
               <Input
                 label="Adults"
                 type="number"
@@ -405,7 +405,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
             {children > 0 && (
               <fieldset>
                 <legend className="label-mono field-label">Ages of children</legend>
-                <div className="mt-1 grid gap-6 sm:grid-cols-4">
+                <div className="mt-1 grid gap-5 sm:grid-cols-4">
                   {Array.from({ length: Math.min(children, 10) }, (_, index) => (
                     <Input
                       key={index}
@@ -557,8 +557,8 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
         )}
 
         {step === 2 && (
-          <div className="mt-6 grid gap-6">
-            <div className="grid gap-6 sm:grid-cols-2">
+          <div className="mt-6 grid gap-5">
+            <div className="grid gap-5 sm:grid-cols-2">
               <Input
                 label="Name"
                 autoComplete="name"
@@ -574,7 +574,7 @@ export function EnquiryWizard({ defaultStay }: { defaultStay?: string }) {
                 {...register("phone")}
               />
             </div>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2">
               <Input
                 label="Email"
                 type="email"

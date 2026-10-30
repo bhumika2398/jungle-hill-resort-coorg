@@ -125,7 +125,7 @@ export default async function PlanYourStayPage() {
       </nav>
 
       <Block id="getting-here" index={1} title="Getting here" tone="theme-ivory">
-        <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+        <div className="grid gap-5 lg:grid-cols-2 lg:gap-6">
           <div>
             <address className="font-display text-2xl leading-snug not-italic">
               {siteConfig.contact.addressLines.map((line) => (

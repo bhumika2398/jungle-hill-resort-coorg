@@ -13,7 +13,7 @@ export function MealTimetable({ meals, hours }: MealTimetableProps) {
       <p className="mt-1 font-display text-3xl">{hours}</p>
       <dl className="mt-5 space-y-2.5">
         {meals.map((meal) => (
-          <div key={meal.name} className="flex items-baseline justify-between gap-6">
+          <div key={meal.name} className="flex items-baseline justify-between gap-5">
             <dt>{meal.name}</dt>
             <dd className="shrink-0 text-small text-body/80 tabular-nums">{meal.time}</dd>
           </div>

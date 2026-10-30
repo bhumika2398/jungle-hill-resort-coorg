@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { GradeTint } from "@/components/shared/GradeTint";
+import { cn } from "@/lib/utils";
 import type { ImageAsset } from "@/types";
 
 interface LightboxProps {
@@ -12,10 +13,18 @@ interface LightboxProps {
   index: number | null;
   onClose: () => void;
   onIndexChange: (index: number) => void;
+  /** "black": a near-black backdrop and caption, used by the gallery. */
+  variant?: "default" | "black";
 }
 
 /** Accessible lightbox: Esc, arrow keys, swipe, focus trap, focus restored on close. */
-export function Lightbox({ images, index, onClose, onIndexChange }: LightboxProps) {
+export function Lightbox({
+  images,
+  index,
+  onClose,
+  onIndexChange,
+  variant = "default",
+}: LightboxProps) {
   const open = index !== null;
   const panel = useRef<HTMLDivElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
@@ -69,7 +78,10 @@ export function Lightbox({ images, index, onClose, onIndexChange }: LightboxProp
       aria-modal="true"
       aria-label="Photo viewer"
       data-lenis-prevent
-      className="dark-surface fixed inset-0 z-[80] touch-pan-y touch-pinch-zoom overscroll-contain bg-ink/95 text-ivory"
+      className={cn(
+        "dark-surface fixed inset-0 z-[80] touch-pan-y touch-pinch-zoom overscroll-contain text-ivory",
+        variant === "black" ? "bg-black/[0.92]" : "bg-ink/95",
+      )}
       onPointerDown={(event) => {
         swipeStart.current = event.clientX;
       }}
@@ -126,7 +138,12 @@ export function Lightbox({ images, index, onClose, onIndexChange }: LightboxProp
 
       <p
         aria-live="polite"
-        className="glass absolute inset-x-4 bottom-4 mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3 text-sm sm:bottom-6 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+        className={cn(
+          "absolute inset-x-4 bottom-4 mx-auto flex max-w-3xl items-center justify-between gap-4 rounded-[6px] border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-sm backdrop-blur-[12px] sm:bottom-6",
+          variant === "black"
+            ? "border-white/15 bg-black/45 text-ivory"
+            : "border-ivory/25 bg-ivory/10 text-ivory",
+        )}
       >
         <span>{image.alt}</span>
         <span className="label-mono shrink-0">

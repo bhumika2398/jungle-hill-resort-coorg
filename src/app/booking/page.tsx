@@ -27,7 +27,7 @@ export default function BookingPage() {
         }
       />
       <section aria-label="Enquiry form" className="pb-[var(--space-section)]">
-        <div className="page-container grid gap-6 lg:grid-cols-12">
+        <div className="page-container grid gap-5 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <Suspense
               fallback={

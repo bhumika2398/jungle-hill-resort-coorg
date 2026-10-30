@@ -24,7 +24,7 @@ export async function HomeStays() {
       aria-label="Our stays"
       className="section-space theme-sage scroll-mt-20 bg-surface text-body"
     >
-      <div className="page-container grid gap-6 lg:grid-cols-12 lg:gap-8 pr-[4.25rem] lg:pr-20">
+      <div className="page-container grid gap-5 lg:grid-cols-12 lg:gap-6 pr-[4.25rem] lg:pr-20">
         <div className="lg:col-span-4 lg:pt-4">
           <SectionHeader
             tone="dark"
@@ -41,7 +41,7 @@ export async function HomeStays() {
           </Link>
         </div>
 
-        <ul className="grid gap-5 sm:grid-cols-2 lg:col-span-8">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
           {rooms.map((room, index) => (
             <li key={room.slug} className="min-w-0">
               <FadeUp index={index} className="h-full">

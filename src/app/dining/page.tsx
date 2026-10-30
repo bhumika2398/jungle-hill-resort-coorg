@@ -55,7 +55,7 @@ export default async function DiningPage() {
         aria-label="Timings and guidelines"
         className="section-space theme-sage bg-surface text-body"
       >
-        <div className="page-container grid items-start gap-6 lg:grid-cols-12">
+        <div className="page-container grid items-start gap-5 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <RestaurantTimings
               opens={dining.opens}

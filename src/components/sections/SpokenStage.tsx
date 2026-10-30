@@ -102,7 +102,7 @@ export function SpokenStage({ notes }: { notes: SpokenNote[] }) {
       }}
       className="touch-pan-y outline-offset-8 focus-visible:outline-2 focus-visible:outline-burgundy"
     >
-      <div className="grid gap-6 lg:min-h-[29rem] lg:grid-cols-3 lg:gap-8">
+      <div className="grid gap-5 lg:min-h-[29rem] lg:grid-cols-3 lg:gap-6">
         {visible.map((note, k) => (
           <m.div
             key={`${start}-${note.id}`}

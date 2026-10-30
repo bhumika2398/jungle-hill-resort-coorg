@@ -58,12 +58,12 @@ export function Bubble({
     <figure id={id} className={cn("m-0", className)}>
       <div
         className={cn(
-          "relative flex flex-col rounded-[6px] border border-line bg-card p-6 text-body sm:p-7",
+          "relative flex flex-col rounded-[6px] border border-line bg-card p-4 text-body sm:p-5",
           heightClass,
         )}
       >
         <blockquote className="m-0 min-h-0 flex-1">
-          <p className="font-display text-[1.3rem] leading-snug text-body italic sm:text-[1.4rem]">
+          <p className="font-display text-[1.1rem] leading-snug text-body italic sm:text-[1.15rem]">
             <span aria-hidden="true" className="mr-1 text-burgundy not-italic">
               &ldquo;
             </span>
@@ -87,7 +87,7 @@ export function Bubble({
           )}
         />
       </div>
-      <figcaption className={cn("mt-5 flex items-center gap-3", NAME_ALIGN[tail])}>
+      <figcaption className={cn("mt-4 flex items-center gap-3", NAME_ALIGN[tail])}>
         {note.profileUrl ? (
           <a
             href={note.profileUrl}

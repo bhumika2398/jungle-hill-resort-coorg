@@ -31,7 +31,7 @@ export function ExploreBand() {
         <div className="absolute inset-0 bg-olive/[0.78]" />
       </div>
 
-      <div className="page-container grid gap-6 lg:grid-cols-12 lg:items-center">
+      <div className="page-container grid gap-5 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <RevealText
             as="h2"

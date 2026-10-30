@@ -29,7 +29,7 @@ export function BookingBand() {
       aria-label="Ask about your dates"
       className="section-space relative isolate overflow-hidden bg-burgundy text-ivory"
     >
-      <div className="page-container relative grid items-center gap-6 lg:grid-cols-[0.8fr_1.5fr] lg:gap-8">
+      <div className="page-container relative grid items-center gap-5 lg:grid-cols-[0.8fr_1.5fr] lg:gap-6">
         <div>
           <h2 className="text-h3 text-ivory">
             Dates in mind?

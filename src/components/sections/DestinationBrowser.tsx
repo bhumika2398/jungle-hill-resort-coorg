@@ -339,7 +339,7 @@ export function DestinationBrowser({ destinations }: { destinations: Destination
           ))}
         </div>
 
-        <ul className="mt-3 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((place, index) => (
             <li key={place.id} id={place.id} className="min-w-0 scroll-mt-28">
               <FadeUp index={index % 3} className="h-full">

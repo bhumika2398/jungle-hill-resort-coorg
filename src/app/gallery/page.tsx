@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
 
 export const revalidate = 3600;
 
-// A faint misty-valley photograph behind the whole page, under a heavy ivory wash.
+// A faint misty-valley photograph behind the stage, under a black overlay.
 const backdrop = photo(
   "/images/gallery/grounds-misty-valley.jpg",
   "Mist over the valley beyond the resort's tiled roofs",
@@ -29,11 +29,7 @@ export default async function GalleryPage() {
     gallery.some((image) => image.category === category),
   );
   return (
-    <div className="theme-ivory relative isolate overflow-hidden bg-surface text-body">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <Photo image={backdrop} fill sizes="100vw" />
-        <div className="absolute inset-0 bg-surface/[0.86]" />
-      </div>
+    <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Gallery", path: "/gallery" }])} />
       <PageHero
         label="Gallery"
@@ -45,11 +41,18 @@ export default async function GalleryPage() {
           </p>
         }
       />
-      <section aria-label="Photographs" className="pb-[var(--space-section)]">
+      <section
+        aria-label="Photographs"
+        className="relative isolate overflow-hidden bg-black py-[var(--space-section)] text-ivory"
+      >
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+          <Photo image={backdrop} fill sizes="100vw" />
+          <div className="absolute inset-0 bg-black/75" />
+        </div>
         <div className="page-container">
           <GalleryBrowser images={gallery} categories={galleryCategories} />
         </div>
       </section>
-    </div>
+    </>
   );
 }

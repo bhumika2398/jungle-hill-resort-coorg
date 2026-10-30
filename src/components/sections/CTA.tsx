@@ -20,7 +20,7 @@ export function CTA() {
     >
       <VideoBackground poster={poster} sources={estateVideoSources} />
       <div aria-hidden="true" className="absolute inset-0 bg-ivory/90" />
-      <div className="page-container relative grid gap-6 lg:grid-cols-12 lg:items-center">
+      <div className="page-container relative grid gap-5 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-7">
           <RevealText
             lines={[{ text: "Ask us about" }, { text: "your ", emphasis: "dates." }]}

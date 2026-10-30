@@ -42,7 +42,7 @@ export default function TouristDestinationsPage() {
 
           <ul
             aria-label="About the resort"
-            className="mt-[var(--space-section)] grid grid-cols-2 gap-5 rounded-[6px] border border-line bg-card p-5 lg:grid-cols-4"
+            className="mt-[var(--space-section)] grid grid-cols-2 gap-4 rounded-[6px] border border-line bg-card p-5 lg:grid-cols-4"
           >
             {trust.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-3 text-small">

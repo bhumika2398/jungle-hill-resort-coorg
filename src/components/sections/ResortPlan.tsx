@@ -45,7 +45,7 @@ export function ResortPlan({
   const current = planMarkers.find((marker) => marker.id === active) ?? null;
 
   return (
-    <div className={cn("grid gap-6 lg:grid-cols-12 lg:gap-8", className)}>
+    <div className={cn("grid gap-5 lg:grid-cols-12 lg:gap-6", className)}>
       <div className={compact ? "lg:col-span-5" : "lg:col-span-6"}>
         <div className="theme-sand shadow-soft relative overflow-hidden rounded-[6px] border border-line bg-surface">
           <svg
