@@ -9,14 +9,6 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { PLAN_VIEWBOX, planMarkers, planPaths } from "@/data/resortPlan";
 import { cn } from "@/lib/utils";
 
-/** Plantation areas: soft olive shapes with dotted vine rows. Purely illustrative. */
-const plantation = [
-  "M20 400 C 60 370 130 390 150 450 C 165 510 110 570 50 555 C 10 540 0 450 20 400 Z",
-  "M450 450 C 500 430 580 450 590 520 L 590 610 L 430 610 C 420 540 420 480 450 450 Z",
-  "M30 70 C 80 40 150 60 160 120 C 165 170 100 210 50 190 C 10 170 5 100 30 70 Z",
-  "M470 100 C 520 80 585 100 590 150 C 592 205 535 235 485 215 C 455 195 450 130 470 100 Z",
-];
-
 /** Keeps the tooltip inside the plan: flips to the left of the marker on the right-hand side. */
 function tooltipStyle(x: number, y: number): React.CSSProperties {
   const top = Math.min(66, Math.max(2, (y / PLAN_VIEWBOX.height) * 100 - 20));
@@ -52,27 +44,13 @@ export function ResortPlan({
             viewBox={`0 0 ${PLAN_VIEWBOX.width} ${PLAN_VIEWBOX.height}`}
             role="group"
             aria-label="Illustrative plan of the resort, not to scale"
-            className={cn(
-              "block h-auto w-full",
-              compact ? "lg:h-[420px]" : "lg:h-[520px]",
-            )}
+            className="block h-auto w-full"
           >
-            <defs>
-              <pattern id="vines" width="14" height="14" patternUnits="userSpaceOnUse">
-                <circle cx="3" cy="3" r="1.4" fill="#687451" fillOpacity="0.45" />
-              </pattern>
-            </defs>
             <rect
               width={PLAN_VIEWBOX.width}
               height={PLAN_VIEWBOX.height}
               fill="#edE3d3"
             />
-            {plantation.map((d) => (
-              <g key={d}>
-                <path d={d} fill="#687451" fillOpacity="0.14" />
-                <path d={d} fill="url(#vines)" />
-              </g>
-            ))}
 
             {/* The path from the sketch: the main path first, then the branches */}
             {planPaths.map((p, i) => (
@@ -91,37 +69,27 @@ export function ResortPlan({
               />
             ))}
 
+            {/* Names beside the road, as written on the sketch */}
             {planMarkers
-              .filter((marker) => marker.kind === "building")
+              .filter((marker) => marker.mapLabel.length > 0)
               .map((marker) => (
-                <rect
-                  key={`b-${marker.id}`}
-                  x={marker.x - 26}
-                  y={marker.y - 17}
-                  width="52"
-                  height="34"
-                  rx="3"
-                  fill="#f8f1e7"
-                  fillOpacity="0.9"
-                  stroke="#a3947e"
-                  strokeOpacity="0.8"
-                />
-              ))}
-            {planMarkers
-              .filter((marker) => marker.kind === "pool")
-              .map((marker) => (
-                <rect
-                  key={`p-${marker.id}`}
-                  x={marker.x - 36}
-                  y={marker.y - 20}
-                  width="72"
-                  height="40"
-                  rx="4"
-                  fill="#687451"
-                  fillOpacity="0.3"
-                  stroke="#687451"
-                  strokeOpacity="0.8"
-                />
+                <text
+                  key={`t-${marker.id}`}
+                  x={marker.x + marker.labelDx}
+                  y={marker.y + marker.labelDy - (marker.mapLabel.length - 1) * 7}
+                  textAnchor={marker.labelAnchor}
+                  fontSize="16"
+                  letterSpacing="0.3"
+                  fill="#641c2b"
+                  fontFamily="var(--font-jost), sans-serif"
+                  style={{ pointerEvents: "none" }}
+                >
+                  {marker.mapLabel.map((line, i) => (
+                    <tspan key={line} x={marker.x + marker.labelDx} dy={i === 0 ? 0 : 15}>
+                      {line}
+                    </tspan>
+                  ))}
+                </text>
               ))}
 
             {planMarkers.map((marker) => {
@@ -158,13 +126,13 @@ export function ResortPlan({
                     style={{ transformBox: "fill-box", transformOrigin: "center" }}
                   >
                     {/* Invisible, larger hit area so markers are easy to tap on phones */}
-                    <circle cx={marker.x} cy={marker.y} r={44} fill="transparent" />
+                    <circle cx={marker.x} cy={marker.y} r={26} fill="transparent" />
                     {on ? (
                       <circle
                         className="plan-pulse"
                         cx={marker.x}
                         cy={marker.y}
-                        r={14}
+                        r={18}
                         fill="none"
                         stroke={marker.kind === "pool" ? "#687451" : "#641c2b"}
                         strokeWidth="1.5"
@@ -175,7 +143,7 @@ export function ResortPlan({
                     <circle
                       cx={marker.x}
                       cy={marker.y}
-                      r={on ? 17 : 14}
+                      r={on ? 21 : 18}
                       fill={on ? "#687451" : "#641c2b"}
                       stroke={marker.kind === "pool" ? "#687451" : "#641c2b"}
                       strokeWidth="1.5"
@@ -183,9 +151,9 @@ export function ResortPlan({
                     />
                     <text
                       x={marker.x}
-                      y={marker.y + 4.5}
+                      y={marker.y + 5.5}
                       textAnchor="middle"
-                      fontSize="13"
+                      fontSize="15"
                       fontFamily="var(--font-jost), sans-serif"
                       fill="#f7f4ec"
                       style={{ pointerEvents: "none" }}
@@ -198,9 +166,9 @@ export function ResortPlan({
             })}
 
             <text
-              x="590"
-              y="608"
-              textAnchor="end"
+              x={12}
+              y={22}
+              textAnchor="start"
               fontSize="10"
               letterSpacing="2"
               fill="#352c25"
